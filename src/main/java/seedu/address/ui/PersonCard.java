@@ -42,8 +42,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane enrolledClasses;
-    @FXML
     private FlowPane header;
     @FXML
     private FlowPane monday;
@@ -56,6 +54,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane friday;
 
+
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
@@ -64,12 +63,6 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-
-        for(String tempEnrolledClassName : person.getEnrolledClasses().keySet()){
-            Label enrolledClass = new Label(tempEnrolledClassName);
-            enrolledClass.setPrefSize(61, 10);
-            header.getChildren().add(enrolledClass);
-        }
 
         for (String it : Tag.getHeader()) {
             Label day = new Label(it);
