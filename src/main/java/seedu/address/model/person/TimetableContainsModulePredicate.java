@@ -1,14 +1,9 @@
 package seedu.address.model.person;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Tests that a {@code Person}'s {@code Tag} matches any of the keywords given.
@@ -28,22 +23,8 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
             }
         }
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
-        Map<String, List<TimeSlots>> timetable = person.getTimeSlots();
-        for (int i = 0; i < keywords.size(); i++) {
-            for (String day : days) {
-                if (keywords.get(i).equalsIgnoreCase(day)) {
-                    List<TimeSlots> daySlots = timetable.get(day);
-                    int timeIndex = Integer.parseInt(keywords.get(i + 1));
-                    TimeSlots checkSlot = daySlots.get(timeIndex);
-                    if (checkSlot.toString().equalsIgnoreCase("free")) {
-                        return true;
-                    }
-                }
-            }
-        }
         for (String day : days) {
-            List<TimeSlots> daySlots = timetable.get(day);
-            for (TimeSlots module : daySlots) {
+            for (TimeSlots module : person.getTimeSlots().get(day)) {
                 for (String check : keywords) {
                     if (check.equalsIgnoreCase(module.toString())) {
                         return true;
@@ -54,7 +35,6 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
         return false;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -63,6 +43,4 @@ public class TimetableContainsModulePredicate implements Predicate<Person> {
                 && keywords.equals(((seedu.address.model.person.TimetableContainsModulePredicate) other).keywords));
         // state check
     }
-
 }
-

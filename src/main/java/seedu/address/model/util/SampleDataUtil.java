@@ -42,11 +42,8 @@ public class SampleDataUtil {
                         TimeSlots.sampleTimeSlots()),
                 new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                         new Address("Blk 45 Aljunied Street 85, #11-31"),
-                        getTagSet("colleagues"), getEnrolledClassMap("CS2101", "CS2113T"),
-                        TimeSlots.sampleTimeSlots()),
-                new Person(new Name("Self"), new Phone("9999999"), new Email("self@self"), new Address("self"),
-                        getTagSet("self"), new TreeMap<>(), TimeSlots.initTimeSlots())
-
+                        getTagSet("colleagues"), getEnrolledModuleMap("CS2101", "CS2113T"),
+                        TimeSlots.sampleTimeSlots())
         };
     }
 

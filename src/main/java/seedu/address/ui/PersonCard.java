@@ -112,14 +112,19 @@ public class PersonCard extends UiPart<Region> {
         for (String it : mods) {
             Label slot = new Label(it);
             slot.setPrefSize(51, 25);
-            if (it.equalsIgnoreCase("busy")) {
+            if (it.length() < 6) {
+                slot.getStyleClass().add(getColor(it));
+            } else if (it.equalsIgnoreCase("busy")) {
                 slot.getStyleClass().add("black");
                 slot.setText(" ");
             } else if (it.equalsIgnoreCase("free")) {
                 slot.getStyleClass().add("white");
                 slot.setText(" ");
-            }
-             else {
+            } else if (it.charAt(5) == 'm' || it.charAt(5) == 'a') {
+                slot.getStyleClass().add("white");
+                slot.setText(" ");
+
+            } else {
                 slot.getStyleClass().add(getColor(it));
             }
 

@@ -17,12 +17,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-<<<<<<< HEAD
-import seedu.address.model.enrolledClass.EnrolledClass;
-import seedu.address.model.person.*;
-=======
 import seedu.address.model.enrolledModule.EnrolledModule;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -31,7 +26,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
->>>>>>> 2ccbb78c7690a218335eb7a80ae662c4d61e3f7d
 import seedu.address.model.tag.Tag;
 
 
@@ -68,13 +62,12 @@ public class MergeCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> mainList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
-        List<Person> selfList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
+        lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
         Person[] personsToMerge = new Person[lastShownList.size()];
 
 
         for (String index : indices) {
-            if (Integer.parseInt(index) > lastShownList.size()) {
+            if (Integer.parseInt(index) >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
@@ -88,11 +81,9 @@ public class MergeCommand extends Command {
                 throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MergeCommand.MESSAGE_USAGE), nfe);
             }
-            personsToMerge[i] = mainList.get(index);
+            personsToMerge[i] = lastShownList.get(index);
             i++;
         }
-        personsToMerge[i]= selfList.get(0);
-        i++;
         for (int j = 0; j < i - 1; j++) {
             personsToMerge[j + 1] = mergeTimetables(personsToMerge[j], personsToMerge[j + 1], j);
         }
@@ -137,59 +128,97 @@ public class MergeCommand extends Command {
         TimeSlots[] thu2 = slots2.get("thu").toArray(new TimeSlots[0]);
         TimeSlots[] fri1 = slots1.get("fri").toArray(new TimeSlots[0]);
         TimeSlots[] fri2 = slots2.get("fri").toArray(new TimeSlots[0]);
-        List<TimeSlots> finalMon;
-        List<TimeSlots> finalTue;
-        List<TimeSlots> finalWed;
-        List<TimeSlots> finalThu;
-        List<TimeSlots> finalFri;
+        List<TimeSlots> finalMon = new ArrayList<>();
+        List<TimeSlots> finalTue = new ArrayList<>();
+        List<TimeSlots> finalWed = new ArrayList<>();
+        List<TimeSlots> finalThu = new ArrayList<>();
+        List<TimeSlots> finalFri = new ArrayList<>();
         Map<String, List<TimeSlots>> finalSlots = new HashMap<>();
 
-        finalMon = compareTimeSlots(mon1, mon2);
-        finalTue = compareTimeSlots(tue1, tue2);
-        finalWed = compareTimeSlots(wed1, wed2);
-        finalThu = compareTimeSlots(thu1, thu2);
-        finalFri = compareTimeSlots(fri1, fri2);
-
-
+        for (int i = 0; i < 12; i++) {
+            if (mon1[i].toString().equalsIgnoreCase("free")) {
+                if (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a') {
+                    finalMon.add(new TimeSlots("free"));
+                }
+            } else if (mon1[i].toString().equalsIgnoreCase("busy")) {
+                finalMon.add(new TimeSlots("busy"));
+            } else if ((mon1[i].toString().charAt(5) == 'm' || mon1[i].toString().charAt(5) == 'a')
+                    && (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a')) {
+                finalMon.add(new TimeSlots("free"));
+            } else {
+                finalMon.add(new TimeSlots("busy"));
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            if (tue1[i].toString().equalsIgnoreCase("free")) {
+                if (tue2[i].toString().charAt(5) == 'm' || tue2[i].toString().charAt(5) == 'a') {
+                    finalTue.add(new TimeSlots("free"));
+                }
+            } else if (tue1[i].toString().equalsIgnoreCase("busy")) {
+                finalTue.add(new TimeSlots("busy"));
+            } else if ((tue1[i].toString().charAt(5) == 'm' || tue1[i].toString().charAt(5) == 'a'
+                    || tue1[i].toString().equalsIgnoreCase("free"))
+                    && (tue2[i].toString().charAt(5) == 'm' || tue2[i].toString().charAt(5) == 'a'
+                    || tue2[i].toString().equalsIgnoreCase("free"))) {
+                finalTue.add(new TimeSlots("free"));
+            } else {
+                finalTue.add(new TimeSlots("busy"));
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            if (wed1[i].toString().equalsIgnoreCase("free")) {
+                if (wed2[i].toString().charAt(5) == 'm' || wed2[i].toString().charAt(5) == 'a') {
+                    finalWed.add(new TimeSlots("free"));
+                }
+            } else if (wed1[i].toString().equalsIgnoreCase("busy")) {
+                finalWed.add(new TimeSlots("busy"));
+            } else if ((wed1[i].toString().charAt(5) == 'm' || wed1[i].toString().charAt(5) == 'a'
+                    || wed1[i].toString().equalsIgnoreCase("free"))
+                    && (wed2[i].toString().charAt(5) == 'm' || wed2[i].toString().charAt(5) == 'a'
+                    || wed2[i].toString().equalsIgnoreCase("free"))) {
+                finalWed.add(new TimeSlots("free"));
+            } else {
+                finalWed.add(new TimeSlots("busy"));
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            if (thu1[i].toString().equalsIgnoreCase("free")) {
+                if (thu2[i].toString().charAt(5) == 'm' || thu2[i].toString().charAt(5) == 'a') {
+                    finalThu.add(new TimeSlots("free"));
+                }
+            } else if (thu1[i].toString().equalsIgnoreCase("busy")) {
+                finalThu.add(new TimeSlots("busy"));
+            } else if ((thu1[i].toString().charAt(5) == 'm' || thu1[i].toString().charAt(5) == 'a'
+                    || thu1[i].toString().equalsIgnoreCase("free"))
+                    && (thu2[i].toString().charAt(5) == 'm' || thu2[i].toString().charAt(5) == 'a'
+                    || thu2[i].toString().equalsIgnoreCase("free"))) {
+                finalThu.add(new TimeSlots("free"));
+            } else {
+                finalThu.add(new TimeSlots("busy"));
+            }
+        }
+        for (int i = 0; i < 12; i++) {
+            if (fri1[i].toString().equalsIgnoreCase("free")) {
+                if (fri2[i].toString().charAt(5) == 'm' || fri2[i].toString().charAt(5) == 'a') {
+                    finalFri.add(new TimeSlots("free"));
+                }
+            } else if (fri1[i].toString().equalsIgnoreCase("busy")) {
+                finalFri.add(new TimeSlots("busy"));
+            } else if ((fri1[i].toString().charAt(5) == 'm' || fri1[i].toString().charAt(5) == 'a'
+                    || fri1[i].toString().equalsIgnoreCase("free"))
+                    && (mon2[i].toString().charAt(5) == 'm' || mon2[i].toString().charAt(5) == 'a'
+                    || fri2[i].toString().equalsIgnoreCase("free"))) {
+                finalFri.add(new TimeSlots("free"));
+            } else {
+                finalFri.add(new TimeSlots("busy"));
+            }
+        }
         finalSlots.put("mon", finalMon);
         finalSlots.put("tue", finalTue);
         finalSlots.put("wed", finalWed);
         finalSlots.put("thu", finalThu);
         finalSlots.put("fri", finalFri);
         return finalSlots;
-    }
-
-    List<TimeSlots> compareTimeSlots(TimeSlots[] day1, TimeSlots[] day2){
-        List<TimeSlots> finalDay = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
-                if(day1[i].toString().equalsIgnoreCase("free")
-                        ||day1[i].toString().equalsIgnoreCase("0")){
-                    day1[i] = new TimeSlots("0");
-                }
-                else{
-                    try
-                    {
-                        Integer.parseInt(day1[i].toString());
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        day1[i] = new TimeSlots("1");
-                    }
-                }
-
-            if(day2[i].toString().equalsIgnoreCase("free")){
-                day2[i] = new TimeSlots("0");
-            }
-            else{
-                day2[i] = new TimeSlots("1");
-            }
-            String day1BusyCount = day1[i].toString();
-            String day2BusyCount = day2[i].toString();
-            int totalBusyCount = Integer.parseInt(day1BusyCount) + Integer.parseInt(day2BusyCount);
-            String newBusyCount = Integer.toString(totalBusyCount);
-            finalDay.add(new TimeSlots(newBusyCount));
-        }
-        return finalDay;
     }
 
 }

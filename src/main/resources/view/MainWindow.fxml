@@ -51,10 +51,7 @@
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <StackPane fx:id="selfPlaceholder" prefHeight="320" VBox.vgrow="ALWAYS"/>
-                        <SplitPane id="splitPane" fx:id="splitPane2" dividerPositions="0.5" VBox.vgrow="ALWAYS">
-                            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                        </SplitPane>
+                        <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
                     <VBox fx:id="timetableList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                         <StackPane fx:id="browserPlaceholder" prefWidth="340" prefHeight="320">

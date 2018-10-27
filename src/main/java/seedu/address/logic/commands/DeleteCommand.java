@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + "merged " + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
-    public static final String MESSAGE_DELETE_MERGED_SUCCESS = "Deleted Group: %1$s";
+
     private final Index targetIndex;
     private final String targetList;
 
@@ -52,12 +52,7 @@ public class DeleteCommand extends Command {
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePerson(personToDelete);
         model.commitAddressBook();
-        if(targetList.equalsIgnoreCase("main")) {
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
-        }
-        else{
-            return new CommandResult(String.format(MESSAGE_DELETE_MERGED_SUCCESS, personToDelete.getName()));
-        }
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
     @Override

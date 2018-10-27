@@ -15,8 +15,8 @@ import seedu.address.model.tag.Tag;
 public class TimetableCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES = {"white", "grey2", "grey4", "grey6",
-             "black"};
+    private static final String[] TAG_COLOR_STYLES = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
+            "pink", "black", "grey", "maroon", "navy"};
 
 
     /**
@@ -104,13 +104,16 @@ public class TimetableCard extends UiPart<Region> {
         for (String it : mods) {
             Label slot = new Label(it);
             slot.setPrefSize(51, 25);
-            if(it.equalsIgnoreCase("busy")) {
+            if (it.equalsIgnoreCase("busy")) {
                 slot.getStyleClass().add("black");
                 slot.setText(" ");
-            }
-            else if (it.equalsIgnoreCase("0")||it.equalsIgnoreCase("free")) {
+            } else if (it.equalsIgnoreCase("free")) {
                 slot.getStyleClass().add("white");
                 slot.setText(" ");
+            } else if (it.charAt(5) == 'm' || it.charAt(5) == 'a') {
+                slot.getStyleClass().add("white");
+                slot.setText(" ");
+
             } else {
                 slot.getStyleClass().add(getColor(it));
             }
@@ -122,13 +125,7 @@ public class TimetableCard extends UiPart<Region> {
 
     //Returns a colour based on the module code
     public static String getColor(String tagName) {
-        int tagIndex = Integer.parseInt(tagName);
-        if (tagIndex<=4) {
-            return TAG_COLOR_STYLES[tagIndex];
-        }
-        else{
-            return TAG_COLOR_STYLES[4];
-        }
+        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
     }
 
     /**

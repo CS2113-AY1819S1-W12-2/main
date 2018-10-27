@@ -61,7 +61,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        argMultimap.getAllValues(PREFIX_TAG);
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
 
@@ -87,11 +86,6 @@ public class EditCommandParser implements Parser<EditCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        for(String it:tagSet){
-            if (it.equalsIgnoreCase("self")||it.equalsIgnoreCase("merged")){
-                throw new ParseException("Not allowed to set Self or Merged tag");
-            }
-        }
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 

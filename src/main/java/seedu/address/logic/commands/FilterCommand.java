@@ -19,7 +19,7 @@ public class FilterCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + "Filters the list to based on free time slots and " +
             "modules taken "
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " CS2101 mon 10am";
+            + "Example: " + COMMAND_WORD + " CS2101 CS2113";
 
     private final TimetableContainsModulePredicate predicate;
 

@@ -13,7 +13,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
-import seedu.address.model.person.IsSelfPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TimeSlots;
 
@@ -36,17 +35,17 @@ public class ChangeTimeSlotCommand extends Command {
             + "CS2107";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Time slot changed: %1$s";
-    public static final String MESSAGE_EDIT_SELF_SUCCESS = "Time slot changed: Self";
+    public static final String MESSAGE_NOT_EDITED = "Parameters out of range.";
     public static final String MESSAGE_NOTHING_CHANGED = "No time slot was changed";
 
-    private final String reference;
+    private final Index index;
     private final String[] actions;
 
-    public ChangeTimeSlotCommand(String index, String[] actions) {
+    public ChangeTimeSlotCommand(Index index, String[] actions) {
         requireNonNull(actions);
         requireNonNull(index);
 
-        this.reference = index;
+        this.index = index;
         this.actions = actions;
     }
 
@@ -54,22 +53,13 @@ public class ChangeTimeSlotCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        Person personToChange;
-        try{
-            int index = Integer.parseInt(reference);
-            lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
+        lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsNotSelfOrMergedPredicate());
 
-            if (index-1>= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
-             personToChange = lastShownList.get(index-1);
-        }
-        catch(NumberFormatException nfe){
-            int index = 0;
-            lastShownList = ((ObservableList<Person>) lastShownList).filtered(new IsSelfPredicate());
-            personToChange = lastShownList.get(index);
-        }
+        Person personToChange = lastShownList.get(index.getZeroBased());
 
         Map<String, List<TimeSlots>> timeSlots = personToChange.getTimeSlots();
         String day = null;
@@ -86,9 +76,12 @@ public class ChangeTimeSlotCommand extends Command {
             }
             if (i % 3 == 0) {
                 activity = actions[i];
-
+                if (actions[i].equalsIgnoreCase("free")) {
+                    timeSlots.get(day).set(changeTimeToIndex(time),
+                            new TimeSlots(day.toLowerCase() + time.toLowerCase()));
+                } else {
                     timeSlots.get(day).set(changeTimeToIndex(time), new TimeSlots(activity));
-
+                }
             }
         }
 
@@ -103,12 +96,7 @@ public class ChangeTimeSlotCommand extends Command {
         model.updatePerson(personToChange, newPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        if(!reference.equalsIgnoreCase("self")) {
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newPerson));
-        }
-        else{
-            return new CommandResult(String.format(MESSAGE_EDIT_SELF_SUCCESS));
-        }
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, newPerson));
     }
 
     @Override
@@ -125,7 +113,7 @@ public class ChangeTimeSlotCommand extends Command {
         return false;
     }
 
-    private int changeTimeToIndex(String time) {
+    public int changeTimeToIndex(String time) {
         int index;
         if (time.equalsIgnoreCase("8am")) {
             index = 0;
