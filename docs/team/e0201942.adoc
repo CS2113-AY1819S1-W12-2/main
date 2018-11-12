@@ -23,7 +23,12 @@ update.
 ** Justification: This will allow users to easily find a time slot to arrange for meet ups for social or work related
  reasons because finding a common time slot can be an annoying experience when it involves too many people. It also
  ensures that keeping it updated is not a hassle.
-** Highlights: To be decided.
+** Highlights: The implementation of the timetable had 2 major hurdles. First was finding a way for the timetable to
+be properly displayed on the UI. This required a lot of trial and error to get the timetable to be displayed in the
+way I envisioned it. Secondly, storing the timetable was an interesting and educational experience. Because the
+timetable is essentially a map of lists of time slots, when it gets converted to XML format, the values inside the
+list actually are lost. This issue led to me learning that a class needed to be created to wrap the list so it could
+store properly.
 
 * *Minor enhancement*:
 ** Contacts can be filtered based on their free time slots or activities present in their

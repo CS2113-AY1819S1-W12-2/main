@@ -1444,10 +1444,22 @@ However, if desired, the function can be manually enabled by changing the state 
 
 Since the download function has been disabled, testers can create a `notes` folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly
 
-=== Saving data
+=== Changing a person's time slot
 
-. Dealing with missing/corrupted data files
 
+. Deleting a person while all persons are listed
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list. Ensure the 1st contact
+does not have GER1000 at the monday 10am slot of his timetable.
+.. Test case: `change 1 mon 10am GER1000` +
+   Expected: First contact's monday 10am time slot is changed to GER1000. A messaeg indicating the change has
+   happened successfully is shown. Timestamp in the status bar is updated.
+.. Test case: `change 0 mon 10am GER1000` +
+   Expected: No change happens. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `change 1 ada 10am GER1000`, `change 1 mon 2321am GER1000`, `change 1 mon
+10am GER1000` when the first person's monday 10am slot already has GER1000.
+Expected: Invalid Day, Invalid Time, No time slot changed respectively.
+=======
 .. Test case: Delete `addressbook.xml` +
    Expected: Application opens with an address book with the sample data.
 .. Test case: Corrupt `addressbook.xml` by manually editing it +
