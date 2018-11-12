@@ -807,7 +807,7 @@ Running this command will show the next available time slot (from current time) 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
+Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time slot from the next weekday.
 </td>
 </tr>
 </table>
@@ -839,7 +839,7 @@ Format: <code>export PUBLIC/PRIVATE SELF/INDEX</code></p>
 <p>Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.</p>
 </li>
 <li>
-<p>Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).</p>
+<p>Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (i.e. specific contents of your time-table are hidden!).</p>
 </li>
 </ul>
 </div>
@@ -850,19 +850,11 @@ Format: <code>export PUBLIC/PRIVATE SELF/INDEX</code></p>
 </div>
 <div class="paragraph">
 <p>Example 1: <code>export public self</code><br>
-The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ExportPublicView.png" alt="ExportPublicView" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Figure 2: What the user who imports will see (public view)</p>
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), exactly as shown in Figure 1 above.</p>
 </div>
 <div class="paragraph">
 <p>Example 2: <code>export private self</code><br>
-The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.</p>
+The importing user will see only the busy and free time-slots in your time-table, marked as black and white colored slots respectively, as seen in Figure 2 below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -870,7 +862,7 @@ The importing user will see only the free and busy time-slots in your time-table
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3: What the user who imports will see (private view)</p>
+<p>Figure 2: What the user who imports will see (private view)</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -879,7 +871,7 @@ The importing user will see only the free and busy time-slots in your time-table
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow NSync user who will import it.
 </td>
 </tr>
 </table>
@@ -891,7 +883,7 @@ The generated string from the command will be automatically copied for you (no m
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Exporting more than 1 user&#8217;s details at a time is currently not available (but will be implemented in future releases!)
+Exporting more than 1 user&#8217;s details at a time or exporting a merged time-table is currently not available (but will be implemented in future releases!).
 </td>
 </tr>
 </table>
@@ -900,12 +892,12 @@ Exporting more than 1 user&#8217;s details at a time is currently not available 
 <div class="sect3">
 <h4 id="import-user-data-code-import-code"><a class="link" href="#import-user-data-code-import-code">3.3.7. Import user data: <code>import</code></a></h4>
 <div class="paragraph">
-<p>Did you receive an encoded string from a NSync contact? Use <code>import</code> to transfer all of the data within the string into your copy of NSync!<br>
-Format: <code>import ENCODED_STRING</code></p>
+<p>Did you receive an encoded string from a fellow NSync user? Use <code>import</code> to transfer all of the data within the string into your copy of NSync!<br>
+Format: <code>import [PASTE_YOUR_ENCODED_STRING_HERE]</code></p>
 </div>
 <div class="paragraph">
-<p>Example 1: <code>import VALID_ENCODED_STRING</code><br>
-If you have imported a valid string, all of the imported user&#8217;s details will now be found in your NSync.</p>
+<p>Display Message 1: Import Successful!<br>
+If you have imported a valid contact who is currently not in your NSync (i.e. no contact with the same name), all of the imported user&#8217;s details will now be found in your NSync.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -914,25 +906,17 @@ If you have imported a valid string, all of the imported user&#8217;s details wi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the time-table that is imported shows only black and white colored entries, it means that the exporting user has chosen the <code>private</code> option during the <code>export</code> process. See <code>export</code> for more details.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Importing a contact with the same name as another contact in your NSync will result in the imported data over-writing all of the existing details of the contact!
+If you see only black and white colored slots in the time-table of the imported contact, it means that the exporting user has chosen the <code>private</code> option during the <code>export</code> process. See <code>export</code> for more details.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Example 2: <code>import INVALID_ENCODED_STRING</code><br>
+<p>Display Message 2: Import Successful! An existing contact has been found in NSync and has been overwritten.<br>
+If you have imported a valid contact who is currently already in your NSync (i.e. contact with the same name), all of the details found in the imported string will overwrite the existing ones found in your NSync, for that particular contact.</p>
+</div>
+<div class="paragraph">
+<p>Display Message 3: Import Failed!<br>
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.</p>
 </div>
 </div>
@@ -1398,4 +1382,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 06:13:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:27:46 UTC</div></div></div></body></html>

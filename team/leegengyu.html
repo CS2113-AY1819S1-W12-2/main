@@ -17,7 +17,7 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>NSync is a desktop application with a command-line interface that helps students resolve the problem of scheduling meetings between their peers, team mates and friends in a simple and fuss-free manner.</p>
+<p>NSync is a desktop application with a command-line interface that helps NUS students resolve the problem of scheduling meetings (and inefficient notes downloading) between their peers, team mates and friends in a simple and fuss-free manner.</p>
 </div>
 </div>
 </div>
@@ -34,7 +34,7 @@
 <p>What it does: Allows the user to <code>export</code> and <code>import</code> all the details of a particular contact. These details include the name, contact number, email, address and time-table of the contact.</p>
 </li>
 <li>
-<p>Justification: Each user has to key in their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.</p>
+<p>Justification: Each user has to key in all of their contacts' individual details previously, which is a very time-consuming process. This time-saving feature allows the user and his/her contacts to key in their own details in a one-time fashion, before exporting their own details and exchanging it with each other for importing.</p>
 </li>
 <li>
 <p>Highlights: This enhancement builds upon all of the existing user details, and requires an in-depth understanding of the workings of the <code>Logic</code> and <code>Model</code> components. The implementation required coalescing all of a user&#8217;s details during exporting, as well as decoding it into the respective fields subsequently during importing.</p>
@@ -50,11 +50,21 @@
 <div class="ulist">
 <ul>
 <li>
+<p><strong>Minor Feature Implemented</strong>: Added the feature to <strong>find the next immediate free time-slot</strong>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allows the user to find the next immediate <code>free</code> time-slot for himself, and/or his contacts from the current time.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p>Project management:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Managed releases for NSync: <code>v1.2</code>, <code>v1.3</code>, <code>v1.3(PE)</code> on GitHub</p>
+<p>Managed releases for NSync: <code>v1.2</code>, <code>v1.3</code>, <code>v1.3(PE)</code>, <code>v1.4</code> on GitHub</p>
 </li>
 <li>
 <p>Bug reports of NSync reviewed (with non-trivial review comments): All issues from #99 to #135</p>
@@ -71,16 +81,6 @@
 </li>
 <li>
 <p>Reported bugs and suggestions for team T09-4 in the class: #129, #131, #133, #136, #138, #140, #141, #143</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Minor Enhancement: Added the feature to <strong>find the next immediate free time-slot</strong>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Allows the user to find the next immediate <code>free</code> time-slot for himself, and/or his contacts from the current time.</p>
 </li>
 </ul>
 </div>
@@ -137,7 +137,7 @@ Running this command will show the next available time slot (from current time) 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
+Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time slot from the next weekday.
 </td>
 </tr>
 </table>
@@ -169,7 +169,7 @@ Format: <code>export PUBLIC/PRIVATE SELF/INDEX</code></p>
 <p>Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.</p>
 </li>
 <li>
-<p>Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).</p>
+<p>Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (i.e. specific contents of your time-table are hidden!).</p>
 </li>
 </ul>
 </div>
@@ -180,19 +180,11 @@ Format: <code>export PUBLIC/PRIVATE SELF/INDEX</code></p>
 </div>
 <div class="paragraph">
 <p>Example 1: <code>export public self</code><br>
-The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ExportPublicView.png" alt="ExportPublicView" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Figure 2: What the user who imports will see (public view)</p>
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), exactly as shown in Figure 1 above.</p>
 </div>
 <div class="paragraph">
 <p>Example 2: <code>export private self</code><br>
-The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.</p>
+The importing user will see only the busy and free time-slots in your time-table, marked as black and white colored slots respectively, as seen in Figure 2 below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -200,7 +192,7 @@ The importing user will see only the free and busy time-slots in your time-table
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3: What the user who imports will see (private view)</p>
+<p>Figure 2: What the user who imports will see (private view)</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -209,7 +201,7 @@ The importing user will see only the free and busy time-slots in your time-table
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow NSync user who will import it.
 </td>
 </tr>
 </table>
@@ -221,7 +213,7 @@ The generated string from the command will be automatically copied for you (no m
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Exporting more than 1 user&#8217;s details at a time is currently not available (but will be implemented in future releases!)
+Exporting more than 1 user&#8217;s details at a time or exporting a merged time-table is currently not available (but will be implemented in future releases!).
 </td>
 </tr>
 </table>
@@ -230,12 +222,12 @@ Exporting more than 1 user&#8217;s details at a time is currently not available 
 <div class="sect3">
 <h4 id="import-user-data-code-import-code"><a class="link" href="#import-user-data-code-import-code">Import user data: <code>import</code></a></h4>
 <div class="paragraph">
-<p>Did you receive an encoded string from a NSync contact? Use <code>import</code> to transfer all of the data within the string into your copy of NSync!<br>
-Format: <code>import ENCODED_STRING</code></p>
+<p>Did you receive an encoded string from a fellow NSync user? Use <code>import</code> to transfer all of the data within the string into your copy of NSync!<br>
+Format: <code>import [PASTE_YOUR_ENCODED_STRING_HERE]</code></p>
 </div>
 <div class="paragraph">
-<p>Example 1: <code>import VALID_ENCODED_STRING</code><br>
-If you have imported a valid string, all of the imported user&#8217;s details will now be found in your NSync.</p>
+<p>Display Message 1: Import Successful!<br>
+If you have imported a valid contact who is currently not in your NSync (i.e. no contact with the same name), all of the imported user&#8217;s details will now be found in your NSync.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -244,25 +236,17 @@ If you have imported a valid string, all of the imported user&#8217;s details wi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the time-table that is imported shows only black and white colored entries, it means that the exporting user has chosen the <code>private</code> option during the <code>export</code> process. See <code>export</code> for more details.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Importing a contact with the same name as another contact in your NSync will result in the imported data over-writing all of the existing details of the contact!
+If you see only black and white colored slots in the time-table of the imported contact, it means that the exporting user has chosen the <code>private</code> option during the <code>export</code> process. See <code>export</code> for more details.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Example 2: <code>import INVALID_ENCODED_STRING</code><br>
+<p>Display Message 2: Import Successful! An existing contact has been found in NSync and has been overwritten.<br>
+If you have imported a valid contact who is currently already in your NSync (i.e. contact with the same name), all of the details found in the imported string will overwrite the existing ones found in your NSync, for that particular contact.</p>
+</div>
+<div class="paragraph">
+<p>Display Message 3: Import Failed!<br>
 If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.</p>
 </div>
 </div>
@@ -281,5 +265,94 @@ If you have missed out a character, or accidentally modified one of the characte
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="update-groups-feature"><a class="link" href="#update-groups-feature">Update Groups Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The update feature allows users to update all the timetables of the merged <code>Person</code> (s) that they have. It will
+automatically update based on any changes to timetables or deletions of <code>Persons</code> (s) involved in the merge.</p>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 06:13:03 UTC</div></div></div></body></html>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user inputs update. A list of <code>Person</code>(s) with "merged" <code>Tag</code> is retrieved. The list is then iterated
+through, updating each <code>Person</code> inside.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand1.PNG" alt="UpdateCommand1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2. <code>Name</code> of the <code>Person</code> is saved as <code>groupName</code>. <code>Address</code> of the <code>Person</code> is tokenized and the names inside
+are used find the <code>Person</code> with that name using the same mechanism as the <code>find</code> command. If a <code>Person</code> cannot be
+found, the
+<code>groupName</code> is stored in a map of <code>List</code> s,
+<code>removedPersons</code> with name as they key. If it is found, it gets added to an array <code>personsToMerge</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand2.PNG" alt="UpdateCommand2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. It then follows the same mechanism as the <code>merge</code> function to update the merged <code>Person</code>. If removedPersons
+is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand3.PNG" alt="UpdateCommand3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>update</code> function works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand4.PNG" alt="UpdateCommand4" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-update-executes"><a class="link" href="#aspect-how-update-executes">Aspect: How update executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Updates when called by the user and gets the people who are part of a merged
+contact through their names at the time of merging.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Faster as it only needs to process when feature is used.</p>
+</li>
+<li>
+<p>Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (To be implemented in V2):</strong> Update every time there is a relevant change ie (editing a contact&#8217;s
+name, changing a contact&#8217;s timetable or deleting a contact).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More convenience for users. Prevents bug caused by editing a contact&#8217;s name and then updating.</p>
+</li>
+<li>
+<p>Cons: A lot more processes involved which will slow down the application.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:27:46 UTC</div></div></div></body></html>
