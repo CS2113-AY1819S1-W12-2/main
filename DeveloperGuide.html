@@ -33,7 +33,7 @@
 <li><a href="#change-time-slot-feature">3.2. Change Time Slot Feature</a></li>
 <li><a href="#merge-timetable-feature">3.3. Merge Timetable Feature</a></li>
 <li><a href="#update-current-merged-feature">3.4. Update Current Merged Feature</a></li>
-<li><a href="#sorting-of-contacts-feature">3.5. Sorting of contacts feature</a></li>
+<li><a href="#sorting-of-contacts-feature">3.5. Sorting of Contacts Feature</a></li>
 <li><a href="#logging">3.6. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 <li><a href="#download-commands">3.8. Download Commands</a></li>
@@ -1127,11 +1127,12 @@ The merged <code>Person</code> is now updated, using the same underlying mechani
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-of-contacts-feature"><a class="link" href="#sorting-of-contacts-feature">3.5. Sorting of contacts feature</a></h3>
+<h3 id="sorting-of-contacts-feature"><a class="link" href="#sorting-of-contacts-feature">3.5. Sorting of Contacts Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The sorting mechanism is implemented with <code>UniquePersonListHelper</code>, which is facilitated by <code>UniquePersonList</code>,
+<p>To make the codebase easy to understand for you as a developer, we implemented the sorting mechanism with
+ <code>UniquePersonListHelper</code>, which is facilitated by <code>UniquePersonList</code>,
  which keeps a list of unique persons in <code>AddressBook</code>.
 <code>UniquePersonListHelper</code> sorts the contacts in <code>UniquePersonList</code> in an lexicographical order, according
 to the person&#8217;s name. It implements the following operations:</p>
@@ -1367,7 +1368,7 @@ Clears the UniquePersonList every time a change is made, and iterates through th
 time complexity of O(N).</p>
 </li>
 <li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
+<p>Cons: May have performance issues in terms of memory usage, which can be complicated for you as a developer to rectify.</p>
 </li>
 </ul>
 </div>
@@ -1377,7 +1378,7 @@ time complexity of O(N).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Will use less memory, because there is no need for a helping class or data structure.</p>
+<p>Pros: Will use less memory, because there is no need for a helper class or data structure.</p>
 </li>
 <li>
 <p>Cons: It has a time complexity of O(N log N), which is slower than our chosen implementation.</p>
@@ -1399,11 +1400,11 @@ errors are implemented in <code>UniquePersonList</code> only, it is possible for
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Prevents unnecessary checks and hence, potentially confusing code.</p>
+<p>Pros: Prevents unnecessary checks and hence, potentially confusing code for you as a developer.</p>
 </li>
 <li>
-<p>Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, the developer has
-to remember to implement his/her own checks.</p>
+<p>Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, you as a developer
+will have to remember to implement your own checks.</p>
 </li>
 </ul>
 </div>
@@ -1414,12 +1415,12 @@ to remember to implement his/her own checks.</p>
 <ul>
 <li>
 <p>Pros: This would add an additional layer of defence to possible careless mistakes by developers in the future.  E.g.
-If they were to make their own version of the helper class but forget to implement their own checks for errors, <code>UniquePersonList</code>
+If you were to make your own version of the helper class but forget to implement their own checks for errors, <code>UniquePersonList</code>
 would still have backup checks.</p>
 </li>
 <li>
 <p>Cons: Introducing redundant checks, which would be misleading, This makes code harder to understand.
-Redundant checks might also incorrectly encourage careless programing habits.</p>
+Redundant checks might also incorrectly encourage careless programing habits for you as a developer.</p>
 </li>
 </ul>
 </div>
@@ -3139,4 +3140,4 @@ Expected: Application opens with an address book with empty data.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:36:20 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:44:06 UTC</div></div></div></body></html>
