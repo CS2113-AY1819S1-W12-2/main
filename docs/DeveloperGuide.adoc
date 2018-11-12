@@ -493,10 +493,11 @@ image::UpdateCommand5.PNG[width="500",align="center"]
 // end::updategrouptimetables[]
 
 // tag::sortingofpersons[]
-=== Sorting of contacts feature
+=== Sorting of Contacts Feature
 ==== Current Implementation
 
-The sorting mechanism is implemented with `UniquePersonListHelper`, which is facilitated by `UniquePersonList`,
+To make the codebase easy to understand for you as a developer, we implemented the sorting mechanism with
+ `UniquePersonListHelper`, which is facilitated by `UniquePersonList`,
  which keeps a list of unique persons in `AddressBook`.
 `UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an lexicographical order, according
 to the person's name. It implements the following operations:
@@ -630,9 +631,9 @@ Clears the UniquePersonList every time a change is made, and iterates through th
  UniquePersonList.
 ** Pros: Easy to implement.  Allows for minimal and compartmentalised changes throughout the code base.  Fast overall
 time complexity of O(N).
-** Cons: May have performance issues in terms of memory usage.
+** Cons: May have performance issues in terms of memory usage, which can be complicated for you as a developer to rectify.
 * **Alternative 2:** Implement a comparator in the current UniquePersonList.
-** Pros: Will use less memory, because there is no need for a helping class or data structure.
+** Pros: Will use less memory, because there is no need for a helper class or data structure.
 ** Cons: It has a time complexity of O(N log N), which is slower than our chosen implementation.
 
 ===== Aspect: Defensive programming practices for helper class
@@ -640,15 +641,15 @@ time complexity of O(N).
 * **Alternative 1 (current choice):** Implement all checks for errors in the helper class, `UniquePersonListHelper` and none in
 `UniquePersonList`.  This is because the helper class is in charge of the actual execution of the program.  If the checks for
 errors are implemented in `UniquePersonList` only, it is possible for a new developer to accidentally bypass the checks.
-** Pros: Prevents unnecessary checks and hence, potentially confusing code.
-** Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, the developer has
-to remember to implement his/her own checks.
+** Pros: Prevents unnecessary checks and hence, potentially confusing code for you as a developer.
+** Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, you as a developer
+will have to remember to implement your own checks.
 * **Alternative 2:** Implement all checks for errors in both `UniquePersonList` and `UniquePersonListHelper`.
 ** Pros: This would add an additional layer of defence to possible careless mistakes by developers in the future.  E.g.
-If they were to make their own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
+If you were to make your own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
 would still have backup checks.
 ** Cons: Introducing redundant checks, which would be misleading, This makes code harder to understand.
-  Redundant checks might also incorrectly encourage careless programing habits.
+  Redundant checks might also incorrectly encourage careless programing habits for you as a developer.
 // end::sortingofpersons[]
 
 === Logging
