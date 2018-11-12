@@ -32,7 +32,7 @@
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#change-time-slot-feature">3.2. Change Time Slot Feature</a></li>
 <li><a href="#merge-timetable-feature">3.3. Merge Timetable Feature</a></li>
-<li><a href="#update-groups-feature">3.4. Update Groups Feature</a></li>
+<li><a href="#update-current-merged-feature">3.4. Update Current Merged Feature</a></li>
 <li><a href="#sorting-of-contacts-feature">3.5. Sorting of contacts feature</a></li>
 <li><a href="#logging">3.6. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
@@ -1009,19 +1009,21 @@ the merged timetable and names of people being merged.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="update-groups-feature"><a class="link" href="#update-groups-feature">3.4. Update Groups Feature</a></h3>
+<h3 id="update-current-merged-feature"><a class="link" href="#update-current-merged-feature">3.4. Update Current Merged Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The update feature allows users to update all the timetables of the merged <code>Person</code> (s) that they have. It will
-automatically update based on any changes to timetables or deletions of <code>Persons</code> (s) involved in the merge.</p>
+<p>Given the scenario where a user has created a merged time-table (i.e. a <code>mergedPerson</code> / <code>Person</code> with <code>Tag</code>-merged) of several contacts (i.e. a <code>Person</code> / <code>Person</code> with no <code>Tag</code>), and one or more contacts had updated their time-tables after the merged time-table had been created, the creator of the merged time-table would previously have to delete the existing merged time-table and manually create another merged time-table to accommodate the changes in the time-table(s).</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
+<p>With the <code>update</code> feature, users are able to update an existing <code>mergedPerson</code>, if there are any changes to the composition of the <code>mergedPerson</code>. Such changes include the update of one or more <code>Person</code> time-tables or deletions of <code>Persons</code>(s).</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user inputs update. A list of <code>Person</code>(s) with "merged" <code>Tag</code> is retrieved. The list is then iterated
-through, updating each <code>Person</code> inside.</p>
+<p>Given below is an example of a scenario where <code>update</code> is used and how the <code>merge</code> mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1:<br>
+After the user inputs <code>update</code>, a list of <code>mergedPerson</code> is retrieved. This list (a.k.a. mergedPersonsList) is iterated through, updating each <code>mergedPerson</code> within mergedPersonsList.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -1029,11 +1031,14 @@ through, updating each <code>Person</code> inside.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2. <code>Name</code> of the <code>Person</code> is saved as <code>groupName</code>. <code>Address</code> of the <code>Person</code> is tokenized and the names inside
-are used find the <code>Person</code> with that name using the same mechanism as the <code>find</code> command. If a <code>Person</code> cannot be
-found, the
-<code>groupName</code> is stored in a map of <code>List</code> s,
-<code>removedPersons</code> with name as they key. If it is found, it gets added to an array <code>personsToMerge</code>.</p>
+<p>Step 2:<br>
+The <code>Name</code> of each <code>mergedPerson</code> is saved as <code>groupName</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>To find a desired <code>Person</code> for updating within <code>mergedPerson</code>, the <code>Address</code> of each <code>mergedPerson</code> is tokenized (i.e. split up), and the desired <code>Person</code> is searched against the names within <code>Address</code>. This is the same underlying mechanism as the <code>find</code> command.<br></p>
+</div>
+<div class="paragraph">
+<p>If the desired <code>Person</code> for updating is found, the <code>Person</code> is added to an array called <code>personsToMerge</code>. Else, if the desired <code>Person</code> cannot be found, both <code>groupName</code> and <code>mergedPerson</code> are stored in <code>removedPersons</code>, which is a map of arrays. To find the corresponding <code>mergedPerson</code> in <code>removedPersons</code>, use <code>groupName</code> as the key (i.e. identifier).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -1041,8 +1046,8 @@ found, the
 </div>
 </div>
 <div class="paragraph">
-<p>Step 3. It then follows the same mechanism as the <code>merge</code> function to update the merged <code>Person</code>. If removedPersons
-is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s)</p>
+<p>Step 3:<br>
+The merged <code>Person</code> is now updated, using the same underlying mechanism as the <code>merge</code> feature. If <code>removedPersons</code> is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s).</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -1065,29 +1070,27 @@ is not empty, it returns a <code>CommandResult</code> showing the <code>Person</
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Updates when called by the user and gets the people who are part of a merged
-contact through their names at the time of merging.</p>
+<p><strong>Alternative 1 (current choice):</strong> Updates <code>mergedPerson</code> only when <code>update</code> is specifically executed by the user as a command. The <code>Person</code> s who are part of a <code>mergedPerson</code> are then retrieved using their names at the time of merging.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Faster as it only needs to process when feature is used.</p>
+<p>Pros: Faster execution time as NSync only needs to run the updating when <code>update</code> is specifically executed as a command by the user.</p>
 </li>
 <li>
-<p>Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.</p>
+<p>Cons: Could lead to a mis-match in information between individual <code>Person</code> s themselves, and the <code>mergedPerson</code> whom <code>Person</code> is part of. This mis-match may also persist if the <code>Person</code> 's name has been modified.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2 (To be implemented in V2):</strong> Update every time there is a relevant change ie (editing a contact&#8217;s
-name, changing a contact&#8217;s timetable or deleting a contact).</p>
+<p><strong>Alternative 2 (To be implemented in v2.0):</strong> Execute <code>update</code> in an under-lying call immediately whenever there is a relevant change (i.e. if a <code>Person</code> who is part of <code>mergedPerson</code> has edited their name or changed their time-table, or if a <code>Person</code> is no longer part of the <code>mergedPerson</code>).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: More convenience for users. Prevents bug caused by editing a contact&#8217;s name and then updating.</p>
+<p>Pros: Brings about more convenience for users, and it is more intuitive to them, since they have to only enter 1 command instead of 2. Prevents the bug caused by editing a <code>Person</code> 's name and then executing <code>update</code>, as mentioned under cons of current choice.</p>
 </li>
 <li>
-<p>Cons: A lot more processes involved which will slow down the application.</p>
+<p>Cons: Overall execution time is slower if there are many <code>mergedPerson</code> s, and many <code>edit</code> s are done. This is because mergedPersonsList is iterated through each time <code>edit</code> is done, to examine each <code>mergedPerson</code> s.</p>
 </li>
 </ul>
 </div>
@@ -3082,4 +3085,4 @@ Expected: Application opens with an address book with empty data.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:30:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:23:51 UTC</div></div></div></body></html>
