@@ -72,17 +72,20 @@
 <li><a href="#use-cases">Appendix C: Use Cases</a>
 <ul class="sectlevel2">
 <li><a href="#use-case-merge-people">C.1. Use case: Merge people</a></li>
+<li><a href="#use-case-change-timetable">C.2. Use case: Change timetable</a></li>
+<li><a href="#use-case-filter-timetable">C.3. Use case: Filter timetable</a></li>
 </ul>
 </li>
-<li><a href="#glossary">Appendix D: Glossary</a></li>
-<li><a href="#product-survey">Appendix E: Product Survey</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">F.2. Deleting a person</a></li>
-<li><a href="#deleting-downloaded-notes">F.3. Deleting downloaded notes</a></li>
-<li><a href="#download-commands-2">F.4. Download Commands</a></li>
-<li><a href="#shownotes-command-2">F.5. ShowNotes Command</a></li>
+<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
+<li><a href="#deleting-downloaded-notes">G.3. Deleting downloaded notes</a></li>
+<li><a href="#download-commands-2">G.4. Download Commands</a></li>
+<li><a href="#shownotes-command-2">G.5. ShowNotes Command</a></li>
 </ul>
 </li>
 </ul>
@@ -2607,9 +2610,126 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="paragraph">
 <p>Use case resumes at step 2.</p>
 </div>
-<div class="paragraph">
-<p>== Non Functional Requirements</p>
+</li>
+</ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-change-timetable"><a class="link" href="#use-case-change-timetable">C.2. Use case: Change timetable</a></h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>AddressBook shows a list of persons</p>
+</li>
+<li>
+<p>User requests to create to change the selected time slot of a selected person to a different activity</p>
+</li>
+<li>
+<p>Time slot is changed</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. One or more given index is invalid.</p>
+</li>
+<li>
+<p>3b. Day is invalid</p>
+</li>
+<li>
+<p>3c. Time is invalid</p>
+</li>
+<li>
+<p>3d. Activity inputted is the same as activity already at the time slot.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. AddressBook shows an error message saying the index inputted is invalid</p>
+</li>
+<li>
+<p>3b1. Addressbook shows an error message saying that day inputted is invalid</p>
+</li>
+<li>
+<p>3c1. Addressbook shows an error message saying that time inputted is invalid</p>
+</li>
+<li>
+<p>3d1. Addressbook shows an error message saying that no time slot has been changed</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-case-filter-timetable"><a class="link" href="#use-case-filter-timetable">C.3. Use case: Filter timetable</a></h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to filter persons based on activities or free time slots they have</p>
+</li>
+<li>
+<p>AddressBook shows a filtered list of persons</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. Input after a valid day is not a valid time</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. AddressBook shows an error message saying the time inputted is invalid</p>
+<div class="paragraph">
+<p>Use case resumes at step 1.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2627,17 +2747,10 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ol>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix D: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
 <div class="sectionbody">
 <div class="dlist">
 <dl>
@@ -2659,7 +2772,7 @@ for the NUS community. It is designed to facilitate and supplement teaching at t
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix E: Product Survey</a></h2>
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong>: Google Contacts</p>
@@ -2723,7 +2836,7 @@ is accurate.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a></h2>
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
@@ -2741,7 +2854,7 @@ These instructions only provide a starting point for testers to work on; testers
 </table>
 </div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">F.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2776,7 +2889,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">F.2. Deleting a person</a></h3>
+<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">G.2. Deleting a person</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2806,7 +2919,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-downloaded-notes"><a class="link" href="#deleting-downloaded-notes">F.3. Deleting downloaded notes</a></h3>
+<h3 id="deleting-downloaded-notes"><a class="link" href="#deleting-downloaded-notes">G.3. Deleting downloaded notes</a></h3>
 <div class="paragraph">
 <p>Because features which involve downloading notes have been disallowed by NUS, in order to test deleting notes,
 testers have to manually create notes and delete them.  However, because this is not how NSync was designed to work,
@@ -2922,7 +3035,7 @@ built into NSync.  The result is that all names of subdirectories will be the mo
 </div>
 </div>
 <div class="sect2">
-<h3 id="download-commands-2"><a class="link" href="#download-commands-2">F.4. Download Commands</a></h3>
+<h3 id="download-commands-2"><a class="link" href="#download-commands-2">G.4. Download Commands</a></h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2940,7 +3053,7 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 <div class="sect2">
-<h3 id="shownotes-command-2"><a class="link" href="#shownotes-command-2">F.5. ShowNotes Command</a></h3>
+<h3 id="shownotes-command-2"><a class="link" href="#shownotes-command-2">G.5. ShowNotes Command</a></h3>
 <div class="paragraph">
 <p>Since the download function has been disabled, testers can create a <code>notes</code> folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly</p>
 </div>
@@ -2970,4 +3083,4 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:15:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:24:07 UTC</div></div></div></body></html>
