@@ -29,7 +29,7 @@ import seedu.address.testutil.MergedBuilder;
 public class UpdateMergedCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalNotesDownloaded(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(),
-                                                    getTypicalNotesDownloaded(), new UserPrefs());
+            getTypicalNotesDownloaded(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
     private String groupName = "test";
 
@@ -108,6 +108,42 @@ public class UpdateMergedCommandTest {
         assertUpdateDeletionSuccess(output);
     }
 
+    @Test
+    public void execute_updateAfterDeletionAllMembersOfGroup_success() {
+        List<Person> filteredPersonList = expectedModel.getFilteredPersonList();
+        List<Person> mainList = ((ObservableList<Person>) filteredPersonList)
+                .filtered(new IsNotSelfOrMergedPredicate());
+        List<Person> mergedList = ((ObservableList<Person>) filteredPersonList).filtered(new IsMergedPredicate());
+        List<Person> personsToMerge = new ArrayList<>();
+        Map<String, List<String>> removedPersons = new HashMap<>();
+
+        Person personToDelete1 = mainList.get(mainList.size() - 1);
+        Person personToDelete2 = mainList.get(INDEX_FIRST_PERSON.getZeroBased());
+        Person groupToUpdate = mergedList.get(0);
+
+
+        model.deletePerson(personToDelete1);
+        model.deletePerson(personToDelete2);
+        expectedModel.deletePerson(personToDelete1);
+        expectedModel.deletePerson(personToDelete2);
+        expectedModel.deletePerson(groupToUpdate);
+        expectedModel.commitAddressBook();
+
+        List<String> affectedModules1 = new ArrayList<>();
+        Name deletedPersonName1 = personToDelete1.getName();
+        Name affectedModuleName = groupToUpdate.getName();
+        affectedModules1.add(affectedModuleName.toString());
+        removedPersons.put(deletedPersonName1.toString(), affectedModules1);
+        List<String> affectedModules2 = new ArrayList<>();
+        Name deletedPersonName2 = personToDelete2.getName();
+        affectedModules2.add(affectedModuleName.toString());
+        removedPersons.put(deletedPersonName2.toString(), affectedModules2);
+
+        String output = createCorrectOutput(removedPersons);
+
+        assertUpdateDeletionGroupSuccess(output, affectedModuleName.toString());
+    }
+
     /**
      * Checks that executing update command after the time slot of a contact has changed causes model to be equal to
      * expected model.
@@ -126,6 +162,21 @@ public class UpdateMergedCommandTest {
     private void assertUpdateDeletionSuccess(String affectedGroupsOutput) {
         UpdateMergedCommand updateMergedCommand = new UpdateMergedCommand();
         String expectedMessage = UpdateMergedCommand.MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + affectedGroupsOutput;
+
+        assertCommandSuccess(updateMergedCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Checks that executing update command after a group deletion is caused by a contact deletion causes
+     * model to be
+     * equal to
+     * expected model.
+     */
+    private void assertUpdateDeletionGroupSuccess(String affectedGroupsOutput, String deletedGroupsOutput) {
+        UpdateMergedCommand updateMergedCommand = new UpdateMergedCommand();
+        String expectedMessage =
+                UpdateMergedCommand.MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + affectedGroupsOutput
+                        + UpdateMergedCommand.MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_GROUPS + deletedGroupsOutput;
 
         assertCommandSuccess(updateMergedCommand, model, commandHistory, expectedMessage, expectedModel);
     }
