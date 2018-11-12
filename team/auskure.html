@@ -33,7 +33,7 @@ coordination and notes acquisition, allowing for streamlining of work processes.
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: In a single command, we allow the user to delete the notes previously downloaded using
+<p>What it does: In a single command, the user is able to delete the notes previously downloaded using
 NSync, allowing him to quickly and conveniently free up storage space.</p>
 </li>
 <li>
@@ -56,7 +56,7 @@ enhancement.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: When you add a new contact to your contact list, the contact is added in an alphabetic
+<p>What it does: When the users adds a new contact to your contact list, the contact is added in an alphabetic
 order automatically.  This is opposed to the original implementation, which simply appends the new
 contact to the end of the contact list.</p>
 </li>
@@ -65,7 +65,7 @@ contact to the end of the contact list.</p>
 </li>
 <li>
 <p>Highlights: Understanding of time complexity of algorithms is required.
-For the sorting algorithms, we incorporated the existing library java.util.</p>
+For the sorting algorithms, the existing library java.util was incorporated.</p>
 </li>
 </ul>
 </div>
@@ -222,13 +222,6 @@ ll notes downloaded by the user using NSync.</p>
 <code>UniquePersonListHelper</code> sorts the contacts in <code>UniquePersonList</code> in an lexicographical order, according
 to the person&#8217;s name. It implements the following operations:</p>
 </div>
-<div class="paragraph">
-<p>Because <code>UniquePersonListHelper</code> stores persons in a treemap, with person name as the key, and person
-as the value in the key-value pair of the treemap, it is able to automatically sort persons according
-to their names.   Therefore, it is possible to iterate through <code>UniquePersonListHelper</code>,
-in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
-copied into <code>UniquePersonList</code>.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -262,6 +255,13 @@ In <code>Model</code>, they are exposed as <code>Model#addPerson()</code>, <code
 <p>Within <code>AddressBook</code>, the above listed operations are directly exposed as
 <code>AddressBook#addPerson()</code>, <code>AddressBook#removePerson()</code>, <code>AddressBook#updatePerson()</code>,
 <code>AddressBook#setPersons()</code>, and <code>AddressBook#hasPerson()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Because <code>UniquePersonListHelper</code> stores persons in a treemap, with person name as the key, and person
+as the value in the key-value pair of the treemap, it is able to automatically sort persons according
+to their names.   Therefore, it is possible to iterate through <code>UniquePersonListHelper</code>,
+in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
+copied into <code>UniquePersonList</code>.</p>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the sorting mechanism behaves at each step.</p>
@@ -459,7 +459,7 @@ time complexity of O(N).</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> implement a comparator in the current UniquePersonList.</p>
+<p><strong>Alternative 2:</strong> Implement a comparator in the current UniquePersonList.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -516,4 +516,4 @@ Redundant checks might also incorrectly encourage careless programing habits.</p
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:12:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:13:52 UTC</div></div></div></body></html>

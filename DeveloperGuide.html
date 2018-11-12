@@ -1100,13 +1100,6 @@ The merged <code>Person</code> is now updated, using the same underlying mechani
 <code>UniquePersonListHelper</code> sorts the contacts in <code>UniquePersonList</code> in an lexicographical order, according
 to the person&#8217;s name. It implements the following operations:</p>
 </div>
-<div class="paragraph">
-<p>Because <code>UniquePersonListHelper</code> stores persons in a treemap, with person name as the key, and person
-as the value in the key-value pair of the treemap, it is able to automatically sort persons according
-to their names.   Therefore, it is possible to iterate through <code>UniquePersonListHelper</code>,
-in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
-copied into <code>UniquePersonList</code>.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1140,6 +1133,13 @@ In <code>Model</code>, they are exposed as <code>Model#addPerson()</code>, <code
 <p>Within <code>AddressBook</code>, the above listed operations are directly exposed as
 <code>AddressBook#addPerson()</code>, <code>AddressBook#removePerson()</code>, <code>AddressBook#updatePerson()</code>,
 <code>AddressBook#setPersons()</code>, and <code>AddressBook#hasPerson()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Because <code>UniquePersonListHelper</code> stores persons in a treemap, with person name as the key, and person
+as the value in the key-value pair of the treemap, it is able to automatically sort persons according
+to their names.   Therefore, it is possible to iterate through <code>UniquePersonListHelper</code>,
+in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
+copied into <code>UniquePersonList</code>.</p>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how the sorting mechanism behaves at each step.</p>
@@ -1337,7 +1337,7 @@ time complexity of O(N).</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> implement a comparator in the current UniquePersonList.</p>
+<p><strong>Alternative 2:</strong> Implement a comparator in the current UniquePersonList.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3073,4 +3073,4 @@ Expected: Application opens with an address book with empty data.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:12:42 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:13:52 UTC</div></div></div></body></html>
