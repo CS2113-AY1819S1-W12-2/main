@@ -479,7 +479,7 @@ image::UpdateCommand3.PNG[width="500",align="center"]
 
 The following sequence diagram shows how the `update` function works.
 
-image::UpdateCommand4.PNG[width="500",align="center"]
+image::UpdateCommand5.PNG[width="500",align="center"]
 
 ==== Design Considerations
 
