@@ -811,9 +811,9 @@ to edit, and the activity they would like to put in that time slot.</p>
 incorrectly formatted input will result in a <code>ParseException</code> being thrown. It then calls the <code>ChangeTimeSlotCommand</code>
  with the first element of <code>activities</code> as the <code>index</code> and <code>activities</code> as arguments.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/ChangeTimeslot1.PNG" alt="ChangeTimeslot1" width="800">
+<img src="images/ChangeTimeslot1.PNG" alt="ChangeTimeslot1" width="400" height="gra">
 </div>
 </div>
 <div class="paragraph">
@@ -825,34 +825,34 @@ It then checks to see if the activity at the selected time slot is the same as t
 ignored. If it is not, the time slot in the copied timetable is changed and a Boolean variable <code>didTimetableChange</code> is
 set to true.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/ChangeTimeslot2.PNG" alt="ChangeTimeslot2" width="800">
+<img src="images/ChangeTimeslot2.PNG" alt="ChangeTimeslot2" width="500">
 </div>
 </div>
 <div class="paragraph">
 <p>Step 3. Once <code>activities</code> has been fully iterated through, a new <code>Person</code> <code>newPerson</code> is created with all the same
 identity fields of <code>personToChange</code>, except for the timetable which is the changed timetable.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/ChangeTimeslot3.PNG" alt="ChangeTimeslot3" width="800">
+<img src="images/ChangeTimeslot3.PNG" alt="ChangeTimeslot3" width="500">
 </div>
 </div>
 <div class="paragraph">
 <p>Step 4. <code>newPerson</code> replaces <code>personToChange</code> in the <code>AddressBook</code>.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/ChangeTimeslot4.PNG" alt="ChangeTimeslot4" width="800">
+<img src="images/ChangeTimeslot4.PNG" alt="ChangeTimeslot4" width="400">
 </div>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>change</code> function works.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/ChangeTimeSlot5.PNG" alt="ChangeTimeSlot5" width="800">
+<img src="images/ChangeTimeslot5.PNG" alt="ChangeTimeslot5" width="500">
 </div>
 </div>
 </div>
@@ -912,58 +912,50 @@ outputting a final <code>Person</code> to be added to the address book.</p>
 <div class="paragraph">
 <p>Step 1. The user selects the indexes of the contacts he wants to merge and inputs a group name. <code>MergeCommandParser</code>
 takes the indexes and puts it in a list. It then calls MergeCommand with the list and the group name as
-arguments.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/MergeCommand1.PNG" alt="MergeCommand1" width="200">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The Merge Command uses the list of indexes and the <code>filteredPersonsList</code> to create and fill the array
+arguments. The Merge Command uses the list of indexes and the <code>filteredPersonsList</code> to create and fill the array
 <code>personsToMerge</code>. Your own contact, <code>Person</code> with "self" <code>Tag</code> is always added to the array.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/MergeCommand2.PNG" alt="MergeCommand2" width="400">
+<img src="images/MergeCommand1.PNG" alt="MergeCommand1" width="350">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 3. The <code>mergeTimetable</code> function is called on each <code>Person</code> in <code>personsToMerge</code> and the element after it. The merge
+<p>Step 2. The <code>mergeTimetable</code> function is called on each <code>Person</code> in <code>personsToMerge</code> and the element after it. The merge
 Timetable function iterates through all the time slots in both timetables and creates a new time table based on them.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/MergeCommand4.PNG" alt="MergeCommand4" width="800">
+<img src="images/MergeCommand4.PNG" alt="MergeCommand4" width="500">
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>Name`s of each `Person</code> are appended together and gets saved in the <code>Address</code> of the merged
+<p>Step 3. The <code>Name`s of each `Person</code> are appended together and gets saved in the <code>Address</code> of the merged
 <code>Person</code>. The merged timetable and a "merged" <code>Tag</code> are added to the merged <code>Person</code>. The merged <code>Person</code> is also
 given a placeholder <code>Email</code> and <code>Phone</code>. "merged" <code>Tag</code> causes these <code>Persons</code>(s) to be displayed in a separate list
 in the UI.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/MergeCommand3.PNG" alt="MergeCommand3" width="800">
+<img src="images/MergeCommand3.PNG" alt="MergeCommand3" width="450">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 5. When <code>personsToMerge</code> is fully iterated through, the last
+<p>Step 4. When <code>personsToMerge</code> is fully iterated through, the last
         <code>Person</code> inside is added to the address book. If there already exists a <code>Person</code> with the same <code>Name</code>, that
         <code>Person</code> is updated and a <code>CommandResult</code> reflecting this is shown.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/MergeCommand5.PNG" alt="MergeCommand5" width="800">
+<img src="images/MergeCommand5.PNG" alt="MergeCommand5" width="350">
 </div>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>merge</code> function works.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/MergeCommand6.PNG" alt="MergeCommand6" width="800">
+<img src="images/MergeCommand6.PNG" alt="MergeCommand6" width="500">
 </div>
 </div>
 </div>
@@ -1023,9 +1015,9 @@ automatically update based on any changes to timetables or deletions of <code>Pe
 <p>Step 1. The user inputs update. A list of <code>Person</code>(s) with "merged" <code>Tag</code> is retrieved. The list is then iterated
 through, updating each <code>Person</code> inside.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/UpdateCommand1.PNG" alt="UpdateCommand1" width="800">
+<img src="images/UpdateCommand1.PNG" alt="UpdateCommand1" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -1035,26 +1027,26 @@ found, the
 <code>groupName</code> is stored in a map of <code>List</code> s,
 <code>removedPersons</code> with name as they key. If it is found, it gets added to an array <code>personsToMerge</code>.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/UpdateCommand2.PNG" alt="UpdateCommand2" width="800">
+<img src="images/UpdateCommand2.PNG" alt="UpdateCommand2" width="500">
 </div>
 </div>
 <div class="paragraph">
 <p>Step 3. It then follows the same mechanism as the <code>merge</code> function to update the merged <code>Person</code>. If removedPersons
 is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s)</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/UpdateCommand3.PNG" alt="UpdateCommand3" width="800">
+<img src="images/UpdateCommand3.PNG" alt="UpdateCommand3" width="500">
 </div>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>update</code> function works.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/UpdateCommand4.PNG" alt="UpdateCommand4" width="800">
+<img src="images/UpdateCommand4.PNG" alt="UpdateCommand4" width="500">
 </div>
 </div>
 </div>
@@ -2938,4 +2930,4 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:18:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:28:40 UTC</div></div></div></body></html>
