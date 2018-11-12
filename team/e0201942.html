@@ -10,8 +10,9 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>NUS Sync was designed to help university students by automating notes downloads and aiding in meeting scheduling by automating the search for common free time slots between contacts.
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.</p>
+<p>NSync was designed to streamline the average NUS student&#8217;s life by automating notes downloads and aiding in meeting scheduling by
+automating the search for common free time slots between contacts. NSync is a desktop application that uses a command
+ line interface.</p>
 </div>
 </div>
 </div>
@@ -25,10 +26,19 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: It allows for users to create a merged timetable that displays all common free time slots with a contact/multiple contacts in the address book.</p>
+<p>What it does: It allows a user to store timetables in the address book. Users can then
+create a group timetable with a contact/multiple contacts in the address book
+that displays all common free time slots and how many people are busy at each time slot if it is not free. This
+group contact is stored in a separate list from the individual contact for easier identification.
+ It also allows the user to automatically update their group timetables based on any changes to their contacts by
+ inputting
+update.</p>
 </li>
 <li>
-<p>Justification: This will allow users to easily find a time slot to arrange for meet ups for social or work related reasons because finding a common time slot can be an annoying experience when it involves too many people.</p>
+<p>Justification: This will allow users to easily find a time slot to arrange for meet ups for social or work related
+reasons because finding a common time slot can be an annoying experience when it involves too many people. It also
+ensures that keeping it updated is not a hassle and a person will not have to manually update his groups every time
+a change is made to one of their contacts&#8217;s timetable or a contact is deleted.</p>
 </li>
 <li>
 <p>Highlights: To be decided.</p>
@@ -40,10 +50,19 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: Contacts can be filtered based on their free time slots or modules taken.</p>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Contacts can be filtered based on their free time slots or activities present in their
+timetable or enrolled modules that they have.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+<p><strong>Code contributed</strong>: [<a href="https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&amp;search=E0201942">Functional and test
+code</a>]</p>
 </li>
 <li>
 <p><strong>Other contributions</strong>:</p>
@@ -51,18 +70,44 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 <ul>
 <li>
 <p>Project management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Bug reports of NSync reviewed and commented on and fixed those relevant to me: All issues from #99 to #135</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Enhancements to existing features:
-Adjusted the UI to display timetables for each contact.</p>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Adjusted the UI to display timetables for each contact.</p>
+</li>
+<li>
+<p>Adjusted the UI to have separate lists for group contacts, individual contacts and self contact.</p>
+</li>
+<li>
+<p>Edited delete and find functions to be able to be able to select which list, merged or main, to delete or find from.
+<strong>*</strong></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Documentation:
 <a href="https://github.com">#14</a></p>
 </li>
 <li>
-<p>Community:
-Fixed a bug in timetable implementation that caused data to not be able to be read properly upon rebooting the application.</p>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reported bugs and suggestions for team T16-3 in the class: #111, #118, #120, #124, #126</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Tools:</p>
@@ -90,6 +135,891 @@ Fixed a bug in timetable implementation that caused data to not be able to be re
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="changing-time-slots-code-change-code"><a class="link" href="#changing-time-slots-code-change-code">Changing Time Slots: <code>change</code></a></h4>
+<div class="paragraph">
+<p>You can change your own, or a contact&#8217;s timetable to reflect whether there is an activity at a specified time slot,
+or whether it is free or busy.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>change INDEX/SELF DAY TIME ACTIVITY/FREE/BUSY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Changes the timetable of the person specified by index or your own timetable if self is inputted.</p>
+</li>
+<li>
+<p>The DAY refers to which day of the timetable is going to be edited.</p>
+</li>
+<li>
+<p>The TIME refers to which time within the day will be edited.</p>
+</li>
+<li>
+<p>The ACTIVITY/FREE/BUSY refers to what will be reflected at the seleted time slot</p>
+</li>
+<li>
+<p>DAY must be mon, tue, wed, thu or fri (Non-case sensitive)</p>
+</li>
+<li>
+<p>TIME must be 8am, 9am, 10am, 11am, 12pm, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm, 7pm</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>change 1 mon 8am GER1000</code>
+Changes the mon 8am time slot of the first contact in the main contact list to GER1000</p>
+</div>
+<div class="paragraph">
+<p>Before:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ChangeCommand1.PNG" alt="ChangeCommand1" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>After:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ChangeCommand2.PNG" alt="ChangeCommand2" width="400">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="merging-timetables-code-merge-code"><a class="link" href="#merging-timetables-code-merge-code">Merging timetables: <code>merge</code></a></h4>
+<div class="paragraph">
+<p>You can select multiple contacts whose timetables you would like to merge and give it a group name. This displays a
+collated timetable with the number of people busy for each time slot. It also displays the names of the people in the
+group.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>merge m/INDEX m/INDEX&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Merges the people at selected INDEXes.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed person list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>More than 2 people can be merged at once</p>
+</li>
+<li>
+<p>Your own timetable wil always be included in the merge</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>merge m/2 m/3 m/4 n/CS2101 Project</code><br>
+Merges your own timetable with the 2nd, 3rd and 4th people in the address book.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandSelf.PNG" alt="MergeCommandSelf" width="400">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandUser1.PNG" alt="MergeCommandUser1" width="400">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandUser2.PNG" alt="MergeCommandUser2" width="400">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandUser3.PNG" alt="MergeCommandUser3" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>merges into</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandGroup.PNG" alt="MergeCommandGroup" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>The merged timetable will be added to the list of groups</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommandList.PNG" alt="MergeCommandList" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filters-contacts-based-on-free-time-slots-and-activities-code-filter-code"><a class="link" href="#filters-contacts-based-on-free-time-slots-and-activities-code-filter-code">Filters contacts based on free time slots and activities: <code>filter</code></a></h4>
+<div class="paragraph">
+<p>You can select a time slot or activity you would like to filter your contacts by. Time slot filtering filters out
+people who are busy at the selected time slot. Activity filtering filters out people who do not have the activity in
+their timetable or does not have the module in their enrolled modules if the activity is a module taken.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>filter ACTIVITY /DAY TIME&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Entering a module code removes contacts without the module from the list.</p>
+</li>
+<li>
+<p>Entering a day and time removes contacts without that time slot free.</p>
+</li>
+<li>
+<p>Day must be mon, tue, wed, thu or fri.</p>
+</li>
+<li>
+<p>Only inputs after a valid day will be treated as a time. Every other input gets treated as an activity.</p>
+</li>
+<li>
+<p>Time must be 8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm or 7pm.</p>
+</li>
+<li>
+<p>Contacts can be filtered by more than one activity/day and time.</p>
+</li>
+<li>
+<p>Filter feature is not case sensitive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>filter GER1000</code><br>
+Shows only contacts who have GER1000 in the timetable.</p>
+</div>
+<div class="paragraph">
+<p><code>filter run</code><br>
+Shows only contacts who have run in their timetable.</p>
+</div>
+<div class="paragraph">
+<p><code>filter mon 10am</code><br>
+Shows only contacts who are free at mon 10am.</p>
+</div>
+<div class="paragraph">
+<p><code>filter GER1000 mon 10 am</code><br>
+Shows only contacts who have GER1000 in their timetable and are free at mon 10am.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="updating-group-timetables-code-update-code"><a class="link" href="#updating-group-timetables-code-update-code">Updating group timetables: <code>update</code></a></h4>
+<div class="paragraph">
+<p>You can automatically update your group timetables based on whatever changes have been made to your contacts'
+timetables.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>update</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
+affeccted in addition to updating the group timetables.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filters-contacts-based-on-free-time-slots-and-activities-code-filter-code-2"><a class="link" href="#filters-contacts-based-on-free-time-slots-and-activities-code-filter-code-2">Filters contacts based on free time slots and activities: <code>filter</code></a></h4>
+<div class="paragraph">
+<p>You can select a time slot or activity you would like to filter your contacts by. Time slot filtering filters out
+people who are busy at the selected time slot. Activity filtering filters out people who do not have the activity in
+their timetable or does not have the module in their enrolled modules if the activity is a module taken.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>filter ACTIVITY /DAY TIME&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Entering a module code removes contacts without the module from the list.</p>
+</li>
+<li>
+<p>Entering a day and time removes contacts without that time slot free.</p>
+</li>
+<li>
+<p>Day must be mon, tue, wed, thu or fri.</p>
+</li>
+<li>
+<p>Only inputs after a valid day will be treated as a time. Every other input gets treated as an activity.</p>
+</li>
+<li>
+<p>Time must be 8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm or 7pm.</p>
+</li>
+<li>
+<p>Contacts can be filtered by more than one activity/day and time.</p>
+</li>
+<li>
+<p>Filter feature is not case sensitive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>filter GER1000</code><br>
+Shows only contacts who have GER1000 in the timetable.</p>
+</div>
+<div class="paragraph">
+<p><code>filter run</code><br>
+Shows only contacts who have run in their timetable.</p>
+</div>
+<div class="paragraph">
+<p><code>filter mon 10am</code><br>
+Shows only contacts who are free at mon 10am.</p>
+</div>
+<div class="paragraph">
+<p><code>filter GER1000 mon 10 am</code><br>
+Shows only contacts who have GER1000 in their timetable and are free at mon 10am.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filters-for-next-free-time-slot-code-free-code"><a class="link" href="#filters-for-next-free-time-slot-code-free-code">Filters for next free time slot: <code>free</code></a></h4>
+<div class="paragraph">
+<p>Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (with no scheduled activities)? <code>free</code> allows you to easily find the next available time-slot from the current time for one or more of your NSync contacts, giving you answers to these questions!</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>free f/[SELF/INDEX] &#8230;&#8203;</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SampleTimeTable.png" alt="SampleTimeTable" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 1: Sample time-table</p>
+</div>
+<div class="paragraph">
+<p>Example 1: <code>free f/self</code><br>
+Running this command will show your next available time slot (from current time).<br>
+With reference to Figure 1 above, if the current day and time is Monday 3:00pm, your next available time-slot shown is Monday 4:00pm till 8:00pm. If the current day and time is Monday 4:34pm, your next available time-slot shown is Monday 4:34pm till 8:00pm.</p>
+</div>
+<div class="paragraph">
+<p>Example 2: <code>free f/1 f/7 f/9</code><br>
+Running this command will show the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Running this command outside the day window of Monday to Friday or time window of 8am to 7pm will return a time slot from the next weekday.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can find a common free time-slot for up to 20 contacts &lt;to be confirmed&gt;.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="export-user-data-code-export-code"><a class="link" href="#export-user-data-code-export-code">Export user data: <code>export</code></a></h4>
+<div class="paragraph">
+<p>Met a new acquaintence who would like to have your contact details and time-table to schedule a common meeting time? <code>export</code> allows you to export all of a user&#8217;s (or your own) details in each respective field into an encoded string. (Once you have sent the string to another NSync user, he/she can use <code>import</code> to retrieve the data within the encoded string - see <code>import</code> for more details)<br>
+Format: <code>export PUBLIC/PRIVATE SELF/INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Type 'public' if you would like the user who imports your contact to see the full contents of your time-table.</p>
+</li>
+<li>
+<p>Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (specific contents of your time-table are hidden!).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>All examples shown below are with reference to the sample time-table shown in Figure 1 above.</p>
+</div>
+<div class="paragraph">
+<p>Example 1: <code>export public self</code><br>
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), as seen in Figure 2 below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ExportPublicView.png" alt="ExportPublicView" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 2: What the user who imports will see (public view)</p>
+</div>
+<div class="paragraph">
+<p>Example 2: <code>export private self</code><br>
+The importing user will see only the free and busy time-slots in your time-table, as seen in Figure 3 below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ExportPrivateView.png" alt="ExportPrivateView" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3: What the user who imports will see (private view)</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow user who will import it.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Exporting more than 1 user&#8217;s details at a time is currently not available (but will be implemented in future releases!)
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="import-user-data-code-import-code"><a class="link" href="#import-user-data-code-import-code">Import user data: <code>import</code></a></h4>
+<div class="paragraph">
+<p>Did you receive an encoded string from a NSync contact? Use <code>import</code> to transfer all of the data within the string into your copy of NSync!<br>
+Format: <code>import ENCODED_STRING</code></p>
+</div>
+<div class="paragraph">
+<p>Example 1: <code>import VALID_ENCODED_STRING</code><br>
+If you have imported a valid string, all of the imported user&#8217;s details will now be found in your NSync.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the time-table that is imported shows only black and white colored entries, it means that the exporting user has chosen the <code>private</code> option during the <code>export</code> process. See <code>export</code> for more details.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Importing a contact with the same name as another contact in your NSync will result in the imported data over-writing all of the existing details of the contact!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example 2: <code>import INVALID_ENCODED_STRING</code><br>
+If you have missed out a character, or accidentally modified one of the characters in the string, attempting to import the invalid string will result in an error displayed. Please obtain a valid string from the contact who passed it to you.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="notes-commands"><a class="link" href="#notes-commands">Notes Commands</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The download function has temporarily been disabled in accordance with NUS Information Technology Acceptable use policy for IT resources Ver4.2, Clause 4.6
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You are still able to login and view available files to be downloaded. Try out <code>downloadSelectNotes</code> without the <code>/file</code> prefix!</p>
+</div>
+<div class="paragraph">
+<p>You will need Google Chrome and run a Windows operating system for this function to work.You will also need to be connected to the internet.</p>
+</div>
+<div class="sect3">
+<h4 id="downloading-all-notes-from-a-selected-module-from-ivle-code-downloadallnotes-code"><a class="link" href="#downloading-all-notes-from-a-selected-module-from-ivle-code-downloadallnotes-code">Downloading all notes from a selected module from IVLE : <code>downloadAllNotes</code></a></h4>
+<div class="paragraph">
+<p>Downloads the your notes from IVLE, and stores them in the folder "Notes"<br>
+Format: <code>downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You would need to have Google Chrome installed in the default location in order to execute this command.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadExample.PNG" alt="downloadExample" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Example <code>DownloadAllNotes</code> command usage.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Automatically accesses the your IVLE account using Google Chrome, and downloads all notes and resources
+of the specified module.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You do not have to Enter the full module code or worry about the capitalization. Example: if you are enrolled in <code>CS2113</code> and <code>CS2101</code> entering <code>mod/cs21</code> will select <code>cs2101</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You may notice a new window of Google Chrome opening up. Do not interact with it or you might interfere with the download.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="../images/chromeOpen.PNG" alt="chromeOpen" width="100">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>NSync might be unresponsive during the download, it is so to prevent you from accidentally introducing file corruption.</p>
+</li>
+<li>
+<p>If your download is successful, the result window of NSync will display the exact path to your newly downloaded notes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples and what you might expect :</p>
+</div>
+<div class="paragraph">
+<p><em>Download Successful :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadAllSuccessful.PNG" alt="downloadAllSuccessful" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Module not found :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadModNotFound.PNG" alt="downloadModNotFound" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Password or username Incorrect :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadPasswordOrUsernameWrong.PNG" alt="downloadPasswordOrUsernameWrong" width="600">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="display-all-notes-from-a-selected-module-from-ivle-code-downloadselectnotes-code-without-prefix-code-file-code"><a class="link" href="#display-all-notes-from-a-selected-module-from-ivle-code-downloadselectnotes-code-without-prefix-code-file-code">Display all notes from a selected module from IVLE : <code>downloadSelectNotes</code> without prefix <code>"file/"</code></a></h4>
+<div class="paragraph">
+<p>Displays all the available notes of a selected<br>
+Format: <code>downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Currently the files are not sorted in any order. In a future version we will make its sorted by file type
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectFileExample.PNG" alt="downloadSelectFileExample" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Example <code>DownloadSelectFile</code> <strong>without</strong> <code>file/</code> prefix usage</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All available notes from the selected module would be sourced and displayed</p>
+</li>
+<li>
+<p>if a file is not shown, it could be either a private folder or a submission folder, consult your lecturer for more information</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples and what you might expect :</p>
+</div>
+<div class="paragraph">
+<p><em>File Fetch Successful :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectFileSuccess1.PNG" alt="downloadSelectFileSuccess1" width="600">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectFileSuccess2.PNG" alt="downloadSelectFileSuccess2" width="600">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the number on the left of the file represents the file ID, it is static.  Example: <em>"0:LP41_More_UML_Inheritence.pptx"</em>
+    0 is the file index.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="downloading-selective-notes-from-a-selected-module-from-ivle-code-downloadselectnotes-code-with-prefix-code-file-code"><a class="link" href="#downloading-selective-notes-from-a-selected-module-from-ivle-code-downloadselectnotes-code-with-prefix-code-file-code">Downloading selective notes from a selected module from IVLE : <code>downloadSelectNotes</code> with prefix <code>"file/"</code></a></h4>
+<div class="paragraph">
+<p>Download a selective number of notes from IVLE, and stores them in the folder "notes".</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>downloadSelectNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE] [file/0,1,2&#8230;&#8203;n]</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Use <code>downloadSelectFile</code> without the <code>file\</code> prefix to obtain the file indexes.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectExample.PNG" alt="downloadSelectExample" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Example <code>DownloadSelectFile</code> <strong>with</strong> <code>file/</code> prefix usage</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The files would be downloaded one by one from IVLE to your "notes" folder.</p>
+</li>
+<li>
+<p>if you entered a mix of invalid and valid file IDs, NSync will only only download the correct files, up till it encounters a invalid ID.</p>
+<div class="literalblock">
+<div class="content">
+<pre>Example: file/0,1,2,90000000,3
+if 0,1,2,3 are valid file IDs, only file 0,1,2 will be downloaded.</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples and what you might expect :</p>
+</div>
+<div class="paragraph">
+<p><em>Download Successful :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectSuccess.PNG" alt="downloadSelectSuccess" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p><strong><em>File</strong> not found :</em></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/downloadSelectFileNotFound.PNG" alt="downloadSelectFileNotFound" width="600">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-all-downloaded-notes-code-shownotes-code"><a class="link" href="#show-all-downloaded-notes-code-shownotes-code">Show all downloaded notes: <code>showNotes</code></a></h4>
+<div class="paragraph">
+<p>Displays all the downloaded notes in the UI<br>
+Format: <code>showNotes</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the files are displayed in the order that it is in your directory
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It recursively searches your <code>notes</code> folder and displays all the files available</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples of usage:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/showNotes1.PNG" alt="showNotes1" width="600">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/showNotes2.PNG" alt="showNotes2" width="600">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/showNotes3.PNG" alt="showNotes3" width="600">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clearing-all-downloaded-notes-code-clearnotes-code"><a class="link" href="#clearing-all-downloaded-notes-code-clearnotes-code">Clearing all downloaded notes : <code>clearNotes</code></a></h4>
+<div class="paragraph">
+<p>Clears all downloaded notes.<br>
+Format: <code>clearNotes</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-notes-from-one-or-more-selected-modules-code-deleteselectnotes-code"><a class="link" href="#deleting-notes-from-one-or-more-selected-modules-code-deleteselectnotes-code">Deleting notes from one or more selected modules : <code>deleteSelectNotes</code></a></h4>
+<div class="paragraph">
+<p>Deletes the notes that belong to the specified module, from storage<br>
+Format: <code>deleteSelectNotes [ENROLLED MODULE]1..</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes notes of the <code>ENROLLED MODULE</code>.</p>
+</li>
+<li>
+<p>The notes of the <code>ENROLLED MODULE</code> would be deleted, if they were downloaded using the command
+<code>downloadAllnotes</code> or  <code>downloadSelectNotes</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>deleteSelectNotes CS2100</code><br>
+Deletes the notes belonging to the module CS2100.</p>
+</li>
+<li>
+<p><code>deleteSelectNotes CS2105 CS2106</code><br>
+Deletes the notes belongs to the modules CS2105 and CS2106.</p>
+</li>
+<li>
+<p><code>deleteSelectNotes CS</code><br>
+Deletes the notes belongs to modules that have "CS" in their names</p>
+</li>
+<li>
+<p><code>deleteSelectNotes PL3232</code><br>
+Will not delete anything if "PL3232" does not exist as your downloaded notes.</p>
+</li>
+<li>
+<p><code>deleteSelectNotes PL3232 CS2106</code><br>
+Will not delete anything if "PL3232" does not exist as your downloaded notes, however notes
+belonging to "CS2106" would be deleted.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="upcoming-features"><a class="link" href="#upcoming-features">Upcoming Features</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<div class="paragraph">
+<p>Coming to you soon!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="display-of-notes-in-the-user-interface-upon-download-code-coming-in-v2-0-code"><a class="link" href="#display-of-notes-in-the-user-interface-upon-download-code-coming-in-v2-0-code">Display of notes in the User interface upon download <code>[coming in v2.0]</code></a></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+The downloaded notes can be transferred in the same way.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: What is IVLE?<br>
+<strong>A</strong>: According to the National University of Singapore (NUS), Integrated Virtual Learning Environment (IVLE) is a NUS' custom designed and built Learning Management System
+for the NUS community. It is designed to facilitate and supplement teaching at the National University of Singapore (NUS).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command-summary"><a class="link" href="#command-summary">Command Summary</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add</strong> <code>add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;[em/ENROLLED MODULE]&#8230;&#8203;</code><br>
+e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague em/CS2101 em/CS2113</code></p>
+</li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
+</li>
+<li>
+<p><strong>Clear Notes</strong> : <code>clearNotes</code></p>
+</li>
+<li>
+<p><strong>Delete selected notes</strong> : <code>deleteSelectedNotes [ENROLLED MODULE]1.."<br>
+e.g. `deleteSelectedNotes CS2105 CS2106</code></p>
+</li>
+<li>
+<p><strong>Download All Notes</strong> : <code>downloadAllNotes user/e1234567 pass/password1 mod/CS2113</code></p>
+</li>
+<li>
+<p><strong>Download Selected Notes (selected notes)</strong> : <code>downloadSelectNotes user/e1234567 pass/password1 mod/CS2113 file/1,2,3&#8230;&#8203;</code></p>
+</li>
+<li>
+<p><strong>Download Selected Notes (show all notes)</strong> : <code>downloadSelectNotes user/e1234567 pass/password1 mod/CS2113</code></p>
+</li>
+<li>
+<p><strong>Show notes</strong> : <code>showNotes</code></p>
+</li>
+<li>
+<p><strong>Delete</strong> : <code>delete INDEX</code><br>
+e.g. <code>delete 3</code></p>
+</li>
+<li>
+<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203; [em/ENROLLED MODULE]&#8230;&#8203;</code><br>
+e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
+</li>
+<li>
+<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
+e.g. <code>find James Jake</code></p>
+</li>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>history</code></p>
+</li>
+<li>
+<p><strong>List</strong> : <code>list</code></p>
+</li>
+<li>
+<p><strong>Merge Timetables</strong> : <code>merge [index 1] [index 2] &lt;add more indices if required&gt;</code>
+e.g. <code>merge 1 2 5</code></p>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+</li>
+<li>
+<p><strong>Select</strong> : <code>select INDEX</code><br>
+e.g.<code>select 2</code></p>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -106,198 +1036,99 @@ Fixed a bug in timetable implementation that caused data to not be able to be re
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">Undo/Redo feature</a></h3>
+<h3 id="change-time-slot-feature"><a class="link" href="#change-time-slot-feature">Change Time Slot Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
-It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
-</li>
-<li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
-</li>
-</ul>
+<p>The change time slot feature allows users to edit the timetables of the contacts in their address book. The user
+inputs the index of the contact whose timetable they would like to edit, the day and time of the time slot they want
+to edit, and the activity they would like to put in that time slot.</p>
 </div>
 <div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> and <code>Model#redoAddressBook()</code> respectively.</p>
+<p>Given below is an example a usage scenario and how the change mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
+<p>Step 1. The user inputs the index, day, time and activity. <code>The ChangeTimeSlotCommandParser</code> puts them into an array
+<code>activities</code> and checks to ensure that all the inputs are present and the inputs are in the correct format. Any
+incorrectly formatted input will result in a <code>ParseException</code> being thrown. It then calls the <code>ChangeTimeSlotCommand</code>
+ with the first element of <code>activities</code> as the <code>index</code> and <code>activities</code> as arguments.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+<img src="../images/ChangeTimeslot1.PNG" alt="ChangeTimeslot1" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
+<p>Step 2. The <code>ChangeTimeSlotCommand</code> uses the index to get the <code>Person</code>, <code>personToChange</code> whose timetable is supposed to
+be changed. It then calls <code>createNewUpdatedTimetable</code> with the timetable of <code>personToChange</code> copy of their timetable is
+made. This method iterates through <code>activities</code> and gets the day time and
+activity by checking their position in the array. The time slot to be changed is retrieved based on the selected <code>Person</code>, day and time.
+It then checks to see if the activity at the selected time slot is the same as the one it is supposed to be changed to. If it is, it is
+ignored. If it is not, the time slot in the copied timetable is changed and a Boolean variable <code>didTimetableChange</code> is
+set to true.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
+<img src="../images/ChangeTimeslot2.PNG" alt="ChangeTimeslot2" width="800">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
+<p>Step 3. Once <code>activities</code> has been fully iterated through, a new <code>Person</code> <code>newPerson</code> is created with all the same
+identity fields of <code>personToChange</code>, except for the timetable which is the changed timetable.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+<img src="../images/ChangeTimeslot3.PNG" alt="ChangeTimeslot3" width="800">
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
+<p>Step 4. <code>newPerson</code> replaces <code>personToChange</code> in the <code>AddressBook</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
+<img src="../images/ChangeTimeslot4.PNG" alt="ChangeTimeslot4" width="800">
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
+<p>The following sequence diagram shows how the <code>change</code> function works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+<img src="../images/ChangeTimeslot5.PNG" alt="ChangeTimeslot5" width="800">
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
+<h5 id="aspect-how-change-executes"><a class="link" href="#aspect-how-change-executes">Aspect: How change executes</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Create a copy of the timetable to change and then create a new <code>Person</code> with
+the same identity fields as the <code>person</code> to change with the changed timetable and replacing the <code>person</code> to change with
+this new <code>Person</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easy to implement.</p>
+<p>Pros: Prevents a bugs caused by user inputting the same change to a time slot twice in the same input which
+results in the application stating that no time slot was changed even though a time slot is changed.</p>
 </li>
 <li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
+<p>Cons: Takes more processes making it a little slower.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
+<p><strong>Alternative 2 :</strong> Directly change the timetable of the <code>person</code> to change.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
+<p>Pros: Takes less processes making it a little faster.</p>
 </li>
 <li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
+<p>Cons: Might result in aforementioned bug.</p>
 </li>
 </ul>
 </div>
@@ -307,14 +1138,214 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
+<div class="sect2">
+<h3 id="merge-timetable-feature"><a class="link" href="#merge-timetable-feature">Merge Timetable Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">Current Implementation</a></h4>
 <div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+<p>The merge feature allows for users to select multiple contacts and outputs a merged timetable with all
+their common free slots. When the user inputs the indexes of the contacts he wants to merge, the <code>Person</code>(s) are stored
+in an array , <code>personsToMerge</code>. The array is then iterated through, merging the all objects inside and
+outputting a final <code>Person</code> to be added to the address book.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user selects the indexes of the contacts he wants to merge and inputs a group name. <code>MergeCommandParser</code>
+takes the indexes and puts it in a list. It then calls MergeCommand with the list and the group name as
+arguments.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand1.PNG" alt="MergeCommand1" width="200">
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:02:39 UTC</div></div></div></body></html>
+<div class="paragraph">
+<p>Step 2. The Merge Command uses the list of indexes and the <code>filteredPersonsList</code> to create and fill the array
+<code>personsToMerge</code>. Your own contact, <code>Person</code> with "self" <code>Tag</code> is always added to the array.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand2.PNG" alt="MergeCommand2" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. The <code>mergeTimetable</code> function is called on each <code>Person</code> in <code>personsToMerge</code> and the element after it. The merge
+Timetable function iterates through all the time slots in both timetables and creates a new time table based on them.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand4.PNG" alt="MergeCommand4" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>Name`s of each `Person</code> are appended together and gets saved in the <code>Address</code> of the merged
+<code>Person</code>. The merged timetable and a "merged" <code>Tag</code> are added to the merged <code>Person</code>. The merged <code>Person</code> is also
+given a placeholder <code>Email</code> and <code>Phone</code>. "merged" <code>Tag</code> causes these <code>Persons</code>(s) to be displayed in a separate list
+in the UI.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand3.PNG" alt="MergeCommand3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 5. When <code>personsToMerge</code> is fully iterated through, the last
+        <code>Person</code> inside is added to the address book. If there already exists a <code>Person</code> with the same <code>Name</code>, that
+        <code>Person</code> is updated and a <code>CommandResult</code> reflecting this is shown.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand5.PNG" alt="MergeCommand5" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>merge</code> function works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MergeCommand6.PNG" alt="MergeCommand6" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-merge-executes"><a class="link" href="#aspect-how-merge-executes">Aspect: How merge executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Uses a "merged" <code>Tag</code> to differentiate between merged and normal contacts. The
+merged contacts are displayed in a separate part of the UI with the placeholder <code>Email</code> and <code>Phone</code> undisplayed.
+<code>Address</code> is used to display the names of all the <code>Person`s merged together to create the merged `Person</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement since it does not require creating a new Class.</p>
+</li>
+<li>
+<p>Cons: Violates SOC principles because now <code>Address</code> is used both to store addresses and names. This could lead to
+potential bugs if <code>Address</code> is changed to have different requirements to be considered valid.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (To be implemented in V2):</strong> Have a specific Class that has timetable and name that is updated with
+the merged timetable and names of people being merged.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Better follows Separation of Concerns Principle.</p>
+</li>
+<li>
+<p>Cons: Requires more time to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update-groups-feature"><a class="link" href="#update-groups-feature">Update Groups Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">Current Implementation</a></h4>
+<div class="paragraph">
+<p>The update feature allows users to update all the timetables of the merged <code>Person</code> (s) that they have. It will
+automatically update based on any changes to timetables or deletions of <code>Persons</code> (s) involved in the merge.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user inputs update. A list of <code>Person</code>(s) with "merged" <code>Tag</code> is retrieved. The list is then iterated
+through, updating each <code>Person</code> inside.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand1.PNG" alt="UpdateCommand1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2. <code>Name</code> of the <code>Person</code> is saved as <code>groupName</code>. <code>Address</code> of the <code>Person</code> is tokenized and the names inside
+are used find the <code>Person</code> with that name using the same mechanism as the <code>find</code> command. If a <code>Person</code> cannot be
+found, the
+<code>groupName</code> is stored in a map of <code>List</code> s,
+<code>removedPersons</code> with name as they key. If it is found, it gets added to an array <code>personsToMerge</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand2.PNG" alt="UpdateCommand2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. It then follows the same mechanism as the <code>merge</code> function to update the merged <code>Person</code>. If removedPersons
+is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand3.PNG" alt="UpdateCommand3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>update</code> function works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UpdateCommand4.PNG" alt="UpdateCommand4" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-update-executes"><a class="link" href="#aspect-how-update-executes">Aspect: How update executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Updates when called by the user and gets the people who are part of a merged
+contact through their names at the time of merging.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Faster as it only needs to process when feature is used.</p>
+</li>
+<li>
+<p>Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (To be implemented in V2):</strong> Update every time there is a relevant change ie (editing a contact&#8217;s
+name, changing a contact&#8217;s timetable or deleting a contact).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More convenience for users. Prevents bug caused by editing a contact&#8217;s name and then updating.</p>
+</li>
+<li>
+<p>Cons: A lot more processes involved which will slow down the application.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>UI Class Diagram</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/UiDeveloperGuide.png" alt="UiDeveloperGuide" width="800">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:22:33 UTC</div></div></div></body></html>

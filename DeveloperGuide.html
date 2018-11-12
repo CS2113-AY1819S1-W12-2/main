@@ -30,12 +30,14 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#merge-timetable-feature">3.2. Merge Timetable Feature</a></li>
-<li><a href="#sorting-of-contacts-feature">3.3. Sorting of contacts feature</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
-<li><a href="#download-commands">3.6. Download Commands</a></li>
-<li><a href="#shownotes-command">3.7. ShowNotes Command</a></li>
+<li><a href="#change-time-slot-feature">3.2. Change Time Slot Feature</a></li>
+<li><a href="#merge-timetable-feature">3.3. Merge Timetable Feature</a></li>
+<li><a href="#update-groups-feature">3.4. Update Groups Feature</a></li>
+<li><a href="#sorting-of-contacts-feature">3.5. Sorting of contacts feature</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
+<li><a href="#download-commands">3.8. Download Commands</a></li>
+<li><a href="#shownotes-command">3.9. ShowNotes Command</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -67,17 +69,20 @@
 </li>
 <li><a href="#GetStartedProgramming">Appendix A: Product Scope</a></li>
 <li><a href="#user-stories">Appendix B: User Stories</a></li>
-<li><a href="#use-cases">Appendix C: Use Cases</a></li>
-<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix E: Glossary</a></li>
-<li><a href="#product-survey">Appendix F: Product Survey</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<li><a href="#use-cases">Appendix C: Use Cases</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
-<li><a href="#deleting-downloaded-notes">G.3. Deleting downloaded notes</a></li>
-<li><a href="#download-commands-2">G.4. Download Commands</a></li>
-<li><a href="#shownotes-command-2">G.5. ShowNotes Command</a></li>
+<li><a href="#use-case-merge-people">C.1. Use case: Merge people</a></li>
+</ul>
+</li>
+<li><a href="#glossary">Appendix D: Glossary</a></li>
+<li><a href="#product-survey">Appendix E: Product Survey</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-person">F.2. Deleting a person</a></li>
+<li><a href="#deleting-downloaded-notes">F.3. Deleting downloaded notes</a></li>
+<li><a href="#download-commands-2">F.4. Download Commands</a></li>
+<li><a href="#shownotes-command-2">F.5. ShowNotes Command</a></li>
 </ul>
 </li>
 </ul>
@@ -432,7 +437,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <h3 id="Design-Ui"><a class="link" href="#Design-Ui">2.2. UI component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
+<img src="images/UiDeveloperGuide.png" alt="UiDeveloperGuide" width="800">
 </div>
 <div class="title">Figure 5. Structure of the UI Component</div>
 </div>
@@ -440,7 +445,9 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><strong>API</strong> : <a href="https://github.com/CS2113-AY1819S1-W12-2/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>,
+<code>StatusBarFooter</code>, <code>MergedTimetablePanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract
+<code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2113-AY1819S1-W12-2/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2113-AY1819S1-W12-2/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
@@ -504,7 +511,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <h3 id="Design-Model"><a class="link" href="#Design-Model">2.4. Model component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
+<img src="images/modelDeveloperGuide.png" alt="modelDeveloperGuide" width="800">
 </div>
 <div class="title">Figure 8. Structure of the Model Component</div>
 </div>
@@ -791,12 +798,115 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="merge-timetable-feature"><a class="link" href="#merge-timetable-feature">3.2. Merge Timetable Feature</a></h3>
+<h3 id="change-time-slot-feature"><a class="link" href="#change-time-slot-feature">3.2. Change Time Slot Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
+<p>The change time slot feature allows users to edit the timetables of the contacts in their address book. The user
+inputs the index of the contact whose timetable they would like to edit, the day and time of the time slot they want
+to edit, and the activity they would like to put in that time slot.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example a usage scenario and how the change mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user inputs the index, day, time and activity. <code>The ChangeTimeSlotCommandParser</code> puts them into an array
+<code>activities</code> and checks to ensure that all the inputs are present and the inputs are in the correct format. Any
+incorrectly formatted input will result in a <code>ParseException</code> being thrown. It then calls the <code>ChangeTimeSlotCommand</code>
+ with the first element of <code>activities</code> as the <code>index</code> and <code>activities</code> as arguments.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ChangeTimeslot1.PNG" alt="ChangeTimeslot1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2. The <code>ChangeTimeSlotCommand</code> uses the index to get the <code>Person</code>, <code>personToChange</code> whose timetable is supposed to
+be changed. It then calls <code>createNewUpdatedTimetable</code> with the timetable of <code>personToChange</code> copy of their timetable is
+made. This method iterates through <code>activities</code> and gets the day time and
+activity by checking their position in the array. The time slot to be changed is retrieved based on the selected <code>Person</code>, day and time.
+It then checks to see if the activity at the selected time slot is the same as the one it is supposed to be changed to. If it is, it is
+ignored. If it is not, the time slot in the copied timetable is changed and a Boolean variable <code>didTimetableChange</code> is
+set to true.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ChangeTimeslot2.PNG" alt="ChangeTimeslot2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. Once <code>activities</code> has been fully iterated through, a new <code>Person</code> <code>newPerson</code> is created with all the same
+identity fields of <code>personToChange</code>, except for the timetable which is the changed timetable.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ChangeTimeslot3.PNG" alt="ChangeTimeslot3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 4. <code>newPerson</code> replaces <code>personToChange</code> in the <code>AddressBook</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ChangeTimeslot4.PNG" alt="ChangeTimeslot4" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>change</code> function works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ChangeTimeslot5.PNG" alt="ChangeTimeslot5" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-change-executes"><a class="link" href="#aspect-how-change-executes">Aspect: How change executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Create a copy of the timetable to change and then create a new <code>Person</code> with
+the same identity fields as the <code>person</code> to change with the changed timetable and replacing the <code>person</code> to change with
+this new <code>Person</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Prevents a bugs caused by user inputting the same change to a time slot twice in the same input which
+results in the application stating that no time slot was changed even though a time slot is changed.</p>
+</li>
+<li>
+<p>Cons: Takes more processes making it a little slower.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 :</strong> Directly change the timetable of the <code>person</code> to change.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Takes less processes making it a little faster.</p>
+</li>
+<li>
+<p>Cons: Might result in aforementioned bug.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="merge-timetable-feature"><a class="link" href="#merge-timetable-feature">3.3. Merge Timetable Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
 <p>The merge feature allows for users to select multiple contacts and outputs a merged timetable with all
-their common free slots. When the user inputs the indexes of the contacts he wants to merge, the <code>Persons</code> are stored
+their common free slots. When the user inputs the indexes of the contacts he wants to merge, the <code>Person</code>(s) are stored
 in an array , <code>personsToMerge</code>. The array is then iterated through, merging the all objects inside and
 outputting a final <code>Person</code> to be added to the address book.</p>
 </div>
@@ -804,35 +914,27 @@ outputting a final <code>Person</code> to be added to the address book.</p>
 <p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user selects the indexes of the contacts he wants to merge. <code>MergeCommandParser</code> takes the input and puts
-it in a list, it then calls MergeCommand with the list as an argument.</p>
+<p>Step 1. The user selects the indexes of the contacts he wants to merge and inputs a group name. <code>MergeCommandParser</code>
+takes the indexes and puts it in a list. It then calls MergeCommand with the list and the group name as
+arguments.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommand1.PNG" alt="MergeCommand1" width="800">
+<img src="images/MergeCommand1.PNG" alt="MergeCommand1" width="200">
 </div>
 </div>
 <div class="paragraph">
 <p>Step 2. The Merge Command uses the list of indexes and the <code>filteredPersonsList</code> to create and fill the array
-<code>personsToMerge</code>.</p>
+<code>personsToMerge</code>. Your own contact, <code>Person</code> with "self" <code>Tag</code> is always added to the array.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommand2.PNG" alt="MergeCommand2" width="800">
+<img src="images/MergeCommand2.PNG" alt="MergeCommand2" width="400">
 </div>
 </div>
 <div class="paragraph">
-<p>Step 3. The <code>mergeTimetable</code> function is called on each element in <code>personsToMerge</code> and the element after it. The merge
-Timetable function iterates through all the time slots in both timetables and compares them.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/MergeCommand3.PNG" alt="MergeCommand3" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 4. Based on whether both original time slots were free or busy, it outputs a merged free or busy time slot and
-adds it to the merged timetable</p>
+<p>Step 3. The <code>mergeTimetable</code> function is called on each <code>Person</code> in <code>personsToMerge</code> and the element after it. The merge
+Timetable function iterates through all the time slots in both timetables and creates a new time table based on them.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -840,8 +942,20 @@ adds it to the merged timetable</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Step 5. The last element in the <code>personsToMerge</code> array is returned after all the iterations. This new person is added
-to the address book.</p>
+<p>The <code>Name`s of each `Person</code> are appended together and gets saved in the <code>Address</code> of the merged
+<code>Person</code>. The merged timetable and a "merged" <code>Tag</code> are added to the merged <code>Person</code>. The merged <code>Person</code> is also
+given a placeholder <code>Email</code> and <code>Phone</code>. "merged" <code>Tag</code> causes these <code>Persons</code>(s) to be displayed in a separate list
+in the UI.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MergeCommand3.PNG" alt="MergeCommand3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 5. When <code>personsToMerge</code> is fully iterated through, the last
+        <code>Person</code> inside is added to the address book. If there already exists a <code>Person</code> with the same <code>Name</code>, that
+        <code>Person</code> is updated and a <code>CommandResult</code> reflecting this is shown.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -851,37 +965,41 @@ to the address book.</p>
 <div class="paragraph">
 <p>The following sequence diagram shows how the <code>merge</code> function works.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MergeCommand6.PNG" alt="MergeCommand6" width="800">
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-merge-executes"><a class="link" href="#aspect-how-merge-executes">Aspect: How merge executes</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Create a new person with the merged timetable to add to the address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Uses a "merged" <code>Tag</code> to differentiate between merged and normal contacts. The
+merged contacts are displayed in a separate part of the UI with the placeholder <code>Email</code> and <code>Phone</code> undisplayed.
+<code>Address</code> is used to display the names of all the <code>Person`s merged together to create the merged `Person</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Easier to implement for testing the logic of the merge command.</p>
+<p>Pros: Easier to implement since it does not require creating a new Class.</p>
 </li>
 <li>
-<p>Cons: Very clunky UI wise to have to find the added person.
-Have to manually delete the person after every merge to
-to prevent having many merged people in the contacts list.</p>
+<p>Cons: Violates SOC principles because now <code>Address</code> is used both to store addresses and names. This could lead to
+potential bugs if <code>Address</code> is changed to have different requirements to be considered valid.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2 (To be implemented):</strong> Have a specific Class that has timetable and name that is updated with the
-merged timetable and names of people being merged whenever merge command is called and have a specific part of the UI
- for displaying this Class.</p>
+<p><strong>Alternative 2 (To be implemented in V2):</strong> Have a specific Class that has timetable and name that is updated with
+the merged timetable and names of people being merged.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Better user experience by letting user easily see the merged timetable. Does not need manual deletion of
-contacts. Better follows Separation of Concerns Principle.</p>
+<p>Pros: Better follows Separation of Concerns Principle.</p>
 </li>
 <li>
 <p>Cons: Requires more time to implement.</p>
@@ -895,9 +1013,98 @@ contacts. Better follows Separation of Concerns Principle.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-of-contacts-feature"><a class="link" href="#sorting-of-contacts-feature">3.3. Sorting of contacts feature</a></h3>
+<h3 id="update-groups-feature"><a class="link" href="#update-groups-feature">3.4. Update Groups Feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The update feature allows users to update all the timetables of the merged <code>Person</code> (s) that they have. It will
+automatically update based on any changes to timetables or deletions of <code>Persons</code> (s) involved in the merge.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the merge mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user inputs update. A list of <code>Person</code>(s) with "merged" <code>Tag</code> is retrieved. The list is then iterated
+through, updating each <code>Person</code> inside.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateCommand1.PNG" alt="UpdateCommand1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 2. <code>Name</code> of the <code>Person</code> is saved as <code>groupName</code>. <code>Address</code> of the <code>Person</code> is tokenized and the names inside
+are used find the <code>Person</code> with that name using the same mechanism as the <code>find</code> command. If a <code>Person</code> cannot be
+found, the
+<code>groupName</code> is stored in a map of <code>List</code> s,
+<code>removedPersons</code> with name as they key. If it is found, it gets added to an array <code>personsToMerge</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateCommand2.PNG" alt="UpdateCommand2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Step 3. It then follows the same mechanism as the <code>merge</code> function to update the merged <code>Person</code>. If removedPersons
+is not empty, it returns a <code>CommandResult</code> showing the <code>Person</code>(s) removed and the affected merged <code>Person</code>(s)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateCommand3.PNG" alt="UpdateCommand3" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>update</code> function works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UpdateCommand4.PNG" alt="UpdateCommand4" width="800">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.4.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-update-executes"><a class="link" href="#aspect-how-update-executes">Aspect: How update executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Updates when called by the user and gets the people who are part of a merged
+contact through their names at the time of merging.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Faster as it only needs to process when feature is used.</p>
+</li>
+<li>
+<p>Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (To be implemented in V2):</strong> Update every time there is a relevant change ie (editing a contact&#8217;s
+name, changing a contact&#8217;s timetable or deleting a contact).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More convenience for users. Prevents bug caused by editing a contact&#8217;s name and then updating.</p>
+</li>
+<li>
+<p>Cons: A lot more processes involved which will slow down the application.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorting-of-contacts-feature"><a class="link" href="#sorting-of-contacts-feature">3.5. Sorting of contacts feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The sorting mechanism is implemented with <code>UniquePersonListHelper</code>, which is facilitated by <code>UniquePersonList</code>,
  which keeps a list of unique persons in <code>AddressBook</code>.
@@ -1119,7 +1326,7 @@ empty address book.  Hence, <code>UniquePersonListHelper</code> will be cleared 
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.2. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-the-list-is-sorted"><a class="link" href="#aspect-how-the-list-is-sorted">Aspect: How the list is sorted</a></h5>
 <div class="ulist">
@@ -1198,14 +1405,14 @@ Redundant checks might also incorrectly encourage careless programing habits.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1236,13 +1443,13 @@ Redundant checks might also incorrectly encourage careless programing habits.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="download-commands"><a class="link" href="#download-commands">3.6. Download Commands</a></h3>
+<h3 id="download-commands"><a class="link" href="#download-commands">3.8. Download Commands</a></h3>
 <div class="paragraph">
 <p>Both <code>downloadSelectNotes</code> and <code>downloadAllNotes</code> extends on the  <code>downloadAbstract</code> class which itself extends from the
 <code>command</code> class. The implementation is similar up till the downloading segment. The download
@@ -1277,7 +1484,7 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 <div class="sect3">
-<h4 id="downloadallnotes-command"><a class="link" href="#downloadallnotes-command">3.6.1. DownloadAllNotes command</a></h4>
+<h4 id="downloadallnotes-command"><a class="link" href="#downloadallnotes-command">3.8.1. DownloadAllNotes command</a></h4>
 <div class="paragraph">
 <p>The following Sequence diagram shows how <code>downloadAllNotes</code> is handled.</p>
 </div>
@@ -1290,7 +1497,7 @@ The download function has temporarily been disabled in accordance with NUS Infor
 <p>Format: <code>downloadAllNotes `downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSWORD] [mod/ENROLLED MODULE]</code></p>
 </div>
 <div class="sect4">
-<h5 id="current-implementation-4"><a class="link" href="#current-implementation-4">Current Implementation</a></h5>
+<h5 id="current-implementation-6"><a class="link" href="#current-implementation-6">Current Implementation</a></h5>
 <div class="paragraph">
 <p>Step 1: Extract files from Jar. Since <em>Selenium ChromeDriver</em> requires it to be present
 in the directory as an executable inorder to be ran, it would need to be extracted from  NSync.jar before carrying on. Additionally, a <em>Notes</em> folder would be created
@@ -1343,7 +1550,7 @@ While Downloading, the program would introduce "busy waiting" to prevent the <em
 </div>
 </div>
 <div class="sect3">
-<h4 id="downloadselectnotes-command"><a class="link" href="#downloadselectnotes-command">3.6.2. DownloadSelectNotes Command</a></h4>
+<h4 id="downloadselectnotes-command"><a class="link" href="#downloadselectnotes-command">3.8.2. DownloadSelectNotes Command</a></h4>
 <div class="paragraph">
 <p>The following Sequence diagram shows how <code>downloadAllNotes</code> is handled.</p>
 </div>
@@ -1369,7 +1576,7 @@ The existance of the <code>file/</code> prefix is optional, and the existance of
 </div>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.6.3. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.8.3. Current Implementation</a></h4>
 <div class="paragraph">
 <p>Step 1-5: is exactly the same as <code>DownloadAllNotes</code> command.</p>
 </div>
@@ -1392,7 +1599,7 @@ If an incorrect file index has been supplied, download will stop after encounter
 </table>
 </div>
 <div class="sect4">
-<h5 id="design-considerations-4"><a class="link" href="#design-considerations-4">Design Considerations</a></h5>
+<h5 id="design-considerations-6"><a class="link" href="#design-considerations-6">Design Considerations</a></h5>
 <div class="sect5">
 <h6 id="aspect-1-which-driver-is-used"><a class="link" href="#aspect-1-which-driver-is-used">Aspect 1: Which Driver is used</a></h6>
 <div class="paragraph">
@@ -1463,12 +1670,12 @@ If an incorrect file index has been supplied, download will stop after encounter
 </div>
 </div>
 <div class="sect2">
-<h3 id="shownotes-command"><a class="link" href="#shownotes-command">3.7. ShowNotes Command</a></h3>
+<h3 id="shownotes-command"><a class="link" href="#shownotes-command">3.9. ShowNotes Command</a></h3>
 <div class="paragraph">
 <p>ShowNotes recursively searches the <code>Notes</code> folder created by <code>DownloadNotes</code> Command.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-8"><a class="link" href="#current-implementation-8">3.9.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>A static String is used to store all the information <code>notesResult</code>.</p>
 </div>
@@ -1489,7 +1696,7 @@ If an incorrect file index has been supplied, download will stop after encounter
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.2. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">3.9.2. Design Considerations</a></h4>
 <div class="paragraph">
 <p>The Current implementation is the most efficient way to list out all the files in a directory. An Iterative method could have been used. However due to the fact that the relative "depth" of a directory is unknown. It would be rather counter-intuitive to search iteratively.</p>
 </div>
@@ -2125,11 +2332,59 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
 </div>
+<div class="sect2">
+<h3 id="use-case-merge-people"><a class="link" href="#use-case-merge-people">C.1. Use case: Merge people</a></h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>AddressBook shows a list of persons</p>
+</li>
+<li>
+<p>User requests to create a merged person from specific people in the list and enters a group name</p>
+</li>
+<li>
+<p>A merged person is created and added to AddressBook</p>
+<div class="paragraph">
+<p>Use case ends.</p>
 </div>
-<div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
-<div class="sectionbody">
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. One or more given index is invalid.</p>
+</li>
+<li>
+<p>3b. Group name is already in use for another group</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. AddressBook shows an error message.</p>
+</li>
+<li>
+<p>3b1. Addressbook shows a message saying that group is updated instead of created</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+<div class="paragraph">
+<p>== Non Functional Requirements</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2143,13 +2398,20 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ol>
 </div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix D: Glossary</a></h2>
 <div class="sectionbody">
 <div class="dlist">
 <dl>
@@ -2171,7 +2433,7 @@ for the NUS community. It is designed to facilitate and supplement teaching at t
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix E: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong>: N*Sync</p>
@@ -2209,7 +2471,7 @@ types of lessons (e.g. lectures, tutorials, lab sessions, etc) will be displayed
 </div>
 </div>
 <div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
@@ -2227,7 +2489,7 @@ These instructions only provide a starting point for testers to work on; testers
 </table>
 </div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">F.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2262,7 +2524,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">G.2. Deleting a person</a></h3>
+<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">F.2. Deleting a person</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2273,11 +2535,12 @@ Expected: The most recent window size and location is retained.</p>
 <p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>delete main 1</code><br>
+Expected: First contact is deleted from the main contact list. Details of the deleted contact shown in the status
+message. Timestamp in the status bar is updated.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
+<p>Test case: <code>delete main 0</code><br>
 Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
@@ -2291,7 +2554,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-downloaded-notes"><a class="link" href="#deleting-downloaded-notes">G.3. Deleting downloaded notes</a></h3>
+<h3 id="deleting-downloaded-notes"><a class="link" href="#deleting-downloaded-notes">F.3. Deleting downloaded notes</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2304,7 +2567,7 @@ delete notes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="download-commands-2"><a class="link" href="#download-commands-2">G.4. Download Commands</a></h3>
+<h3 id="download-commands-2"><a class="link" href="#download-commands-2">F.4. Download Commands</a></h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2322,7 +2585,7 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 <div class="sect2">
-<h3 id="shownotes-command-2"><a class="link" href="#shownotes-command-2">G.5. ShowNotes Command</a></h3>
+<h3 id="shownotes-command-2"><a class="link" href="#shownotes-command-2">F.5. ShowNotes Command</a></h3>
 <div class="paragraph">
 <p>Since the download function has been disabled, testers can create a <code>notes</code> folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly</p>
 </div>
@@ -2352,4 +2615,4 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:02:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:22:33 UTC</div></div></div></body></html>

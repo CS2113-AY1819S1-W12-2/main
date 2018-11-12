@@ -37,9 +37,9 @@
 <li><a href="#timetable-commands">3.3. Timetable Commands</a>
 <ul class="sectlevel3">
 <li><a href="#changing-time-slots-code-change-code">3.3.1. Changing Time Slots: <code>change</code></a></li>
-<li><a href="#sharing-timetables-code-share-code">3.3.2. Sharing timetables <code>share</code></a></li>
-<li><a href="#merging-timetables-code-merge-code">3.3.3. Merging timetables: <code>merge</code></a></li>
-<li><a href="#filters-contacts-based-on-free-time-slots-and-modules-taken-code-filter-code">3.3.4. Filters contacts based on free time slots and modules taken: <code>filter</code></a></li>
+<li><a href="#merging-timetables-code-merge-code">3.3.2. Merging timetables: <code>merge</code></a></li>
+<li><a href="#updating-group-timetables-code-update-code">3.3.3. Updating group timetables: <code>update</code></a></li>
+<li><a href="#filters-contacts-based-on-free-time-slots-and-activities-code-filter-code">3.3.4. Filters contacts based on free time slots and activities: <code>filter</code></a></li>
 <li><a href="#filters-for-next-free-time-slot-code-free-code">3.3.5. Filters for next free time slot: <code>free</code></a></li>
 <li><a href="#export-user-data-code-export-code">3.3.6. Export user data: <code>export</code></a></li>
 <li><a href="#import-user-data-code-import-code">3.3.7. Import user data: <code>import</code></a></li>
@@ -225,7 +225,8 @@ Format: <code>add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;[em/ENRO
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-A person can have any number of tags (including 0)
+If you somehow lose your self contact, you can create a new one by adding t/self to your add command. Adding any
+other tag will not have any effect on the contact created.
 </td>
 </tr>
 </table>
@@ -239,7 +240,10 @@ A person can have any number of tags (including 0)
 <p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
 </li>
 <li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal em/CS2113T</code></p>
+<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 em/CS2113T</code></p>
+</li>
+<li>
+<p><code>add n/Self t/self e/bart@example.com a/Jurong East Street 52 p/92131921</code></p>
 </li>
 </ul>
 </div>
@@ -262,7 +266,8 @@ Contacts in this addressbook are automatically sorted in alphabetical order
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently work
+Trying to add a new contact (with different user fields) with the same name as an existing contact does not currently
+work
 </td>
 </tr>
 </table>
@@ -279,7 +284,7 @@ Format: <code>list</code></p>
 <h4 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.2.4. Editing a person : <code>edit</code></a></h4>
 <div class="paragraph">
 <p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203; [em/ENROLLED MODULE]&#8230;&#8203;</code></p>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [em/ENROLLED MODULE]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -295,14 +300,11 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When editing tags and enrolled modules, the existing tags and enrolled modules of the person will be removed
-i.e adding of tags and enrolled modules is not cumulative.</p>
+<p>When editing tags and enrolled modules, the existing tags and enrolled modules of the person will be removed</p>
 </li>
 <li>
-<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
-</li>
-<li>
-<p>Likewise, you can remove all the person&#8217;s enrolled modules by typing <code>em/</code> without specifying any enrolled modules after it.</p>
+<p>Likewise, you can remove all the person&#8217;s enrolled modules by typing <code>em/</code> without specifying any enrolled modules after it.
+i.e adding of enrolled modules is not cumulative.</p>
 </li>
 </ul>
 </div>
@@ -318,8 +320,8 @@ i.e adding of tags and enrolled modules is not cumulative.</p>
 Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
 </li>
 <li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
+<p><code>edit 2 n/Betsy Crower</code><br>
+Edits the name of the 2nd person to be <code>Betsy Crower</code>.</p>
 </li>
 <li>
 <p><code>edit 3 n/Esther Daniels em/</code><br>
@@ -353,6 +355,13 @@ Format: <code>find MAIN/MERGED KEYWORD [MORE_KEYWORDS]</code></p>
 <li>
 <p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
 </li>
+<li>
+<p>Choosing MAIN will let you search in the individuals contact list while choosing Merged will let you searchi in the
+groups contact list.</p>
+</li>
+<li>
+<p>Choosing of MAIN/MERGED is not case sensitive.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -367,8 +376,8 @@ Format: <code>find MAIN/MERGED KEYWORD [MORE_KEYWORDS]</code></p>
 Returns <code>john</code> and <code>John Doe</code> from the main contact list</p>
 </li>
 <li>
-<p><code>find merged Betsy Tim John</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code> from the merged contact list</p>
+<p><code>find merged CS2113 CS2101</code><br>
+Returns any groups having names <code>CS2113</code> and <code>CS2101</code> from the group contact list</p>
 </li>
 </ul>
 </div>
@@ -392,6 +401,13 @@ Format: <code>delete MAIN/MERGED INDEX</code></p>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
+<li>
+<p>Choosing MAIN will let you delete from the individuals contact list while choosing MERGED will let you delete from
+the groups contact list.</p>
+</li>
+<li>
+<p>Choosing of MAIN/MERGED is not case sensitive.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -407,9 +423,9 @@ Format: <code>delete MAIN/MERGED INDEX</code></p>
 Deletes the 2nd person in the address book.</p>
 </li>
 <li>
-<p><code>find merged Betsy</code><br>
+<p><code>find merged CS2101</code><br>
 <code>delete merged 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command.</p>
+Deletes the 1st group in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
@@ -428,7 +444,7 @@ Format: <code>select INDEX</code></p>
 <p>Selects the person and &lt;to be confirmed&gt; at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>The index refers to the index number shown in the individuals contact list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
@@ -544,7 +560,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="sect3">
 <h4 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.2.10. Clearing all entries : <code>clear</code></a></h4>
 <div class="paragraph">
-<p>Clears all entries from the address book.<br>
+<p>Clears all entries from the address book and resets your self contact.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
@@ -595,7 +611,7 @@ Changes the mon 8am time slot of the first contact in the main contact list to G
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ChangeCommand1.PNG" alt="ChangeCommand1" width="800">
+<img src="images/ChangeCommand1.PNG" alt="ChangeCommand1" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -603,88 +619,12 @@ Changes the mon 8am time slot of the first contact in the main contact list to G
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ChangeCommand2.PNG" alt="ChangeCommand2" width="800">
+<img src="images/ChangeCommand2.PNG" alt="ChangeCommand2" width="400">
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="sharing-timetables-code-share-code"><a class="link" href="#sharing-timetables-code-share-code">3.3.2. Sharing timetables <code>share</code></a></h4>
-<div class="paragraph">
-<p>You can select a person whose timetable you would like to share. This outputs the text that you would input into the
-change command to get that timetable and copies it to your clipboard automatically. You can either choose to share a
-public or private version of the timetable.</p>
-</div>
-<div class="paragraph">
-<p>Public:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ShareCommand1.PNG" alt="ShareCommand1" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Private:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ShareCommand2.PNG" alt="ShareCommand2" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Format: <code>share INDEX PRIVACY</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Shares the timetable of the person at the selected INDEX.</p>
-</li>
-<li>
-<p>PRIVACY can be either public or private.</p>
-</li>
-<li>
-<p>To import a timetable shared with you, use <code>change INDEX [TEXT COPIED TO CLIPBOARD]</code>. Timetable will be imported to
-the person at the selected INDEX.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p><code>share private 1</code></p>
-</div>
-<div class="paragraph">
-<p>Outputs the private version of your first contact&#8217;s timetable in the form of text. Copies this text to your keyboard.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ShareCommand1.PNG" alt="ShareCommand1" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Gives an output of:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ShareCommandOutput.PNG" alt="ShareCommandOutput" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Entering
-<code>change 1 [TEXT COPIED TO CLIPBOARD]</code></p>
-</div>
-<div class="paragraph">
-<p>Changes the timetable of your first contact to the timetable that was shared. This results in:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/ShareCommand2.PNG" alt="ShareCommand2" width="800">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="merging-timetables-code-merge-code"><a class="link" href="#merging-timetables-code-merge-code">3.3.3. Merging timetables: <code>merge</code></a></h4>
+<h4 id="merging-timetables-code-merge-code"><a class="link" href="#merging-timetables-code-merge-code">3.3.2. Merging timetables: <code>merge</code></a></h4>
 <div class="paragraph">
 <p>You can select multiple contacts whose timetables you would like to merge and give it a group name. This displays a
 collated timetable with the number of people busy for each time slot. It also displays the names of the people in the
@@ -722,31 +662,22 @@ Merges your own timetable with the 2nd, 3rd and 4th people in the address book.<
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommandSelf.PNG" alt="MergeCommandSelf" width="800">
+<img src="images/MergeCommandSelf.PNG" alt="MergeCommandSelf" width="400">
 </div>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommandUser1.PNG" alt="MergeCommandUser1" width="800">
+<img src="images/MergeCommandUser1.PNG" alt="MergeCommandUser1" width="400">
 </div>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommandUser2.PNG" alt="MergeCommandUser2" width="800">
+<img src="images/MergeCommandUser2.PNG" alt="MergeCommandUser2" width="400">
 </div>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommandUser3.PNG" alt="MergeCommandUser3" width="800">
+<img src="images/MergeCommandUser3.PNG" alt="MergeCommandUser3" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -754,7 +685,7 @@ Merges your own timetable with the 2nd, 3rd and 4th people in the address book.<
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MergeCommandGroup.PNG" alt="MergeCommandGroup" width="800">
+<img src="images/MergeCommandGroup.PNG" alt="MergeCommandGroup" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -767,13 +698,36 @@ Merges your own timetable with the 2nd, 3rd and 4th people in the address book.<
 </div>
 </div>
 <div class="sect3">
-<h4 id="filters-contacts-based-on-free-time-slots-and-modules-taken-code-filter-code"><a class="link" href="#filters-contacts-based-on-free-time-slots-and-modules-taken-code-filter-code">3.3.4. Filters contacts based on free time slots and modules taken: <code>filter</code></a></h4>
+<h4 id="updating-group-timetables-code-update-code"><a class="link" href="#updating-group-timetables-code-update-code">3.3.3. Updating group timetables: <code>update</code></a></h4>
 <div class="paragraph">
-<p>You can select a time slot or module you would like to filter your contacts by. Time slot filtering filters out
-people who are busy at the selected time slot. Module filtering filters out people who do not take the module.</p>
+<p>You can automatically update your group timetables based on whatever changes have been made to your contacts'
+timetables.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>filter MODULE CODE/DAY TIME&#8230;&#8203;</code></p>
+<p>Format: <code>update</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
+affeccted in addition to updating the group timetables.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filters-contacts-based-on-free-time-slots-and-activities-code-filter-code"><a class="link" href="#filters-contacts-based-on-free-time-slots-and-activities-code-filter-code">3.3.4. Filters contacts based on free time slots and activities: <code>filter</code></a></h4>
+<div class="paragraph">
+<p>You can select a time slot or activity you would like to filter your contacts by. Time slot filtering filters out
+people who are busy at the selected time slot. Activity filtering filters out people who do not have the activity in
+their timetable or does not have the module in their enrolled modules if the activity is a module taken.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>filter ACTIVITY /DAY TIME&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -789,10 +743,16 @@ people who are busy at the selected time slot. Module filtering filters out peop
 <p>Day must be mon, tue, wed, thu or fri.</p>
 </li>
 <li>
+<p>Only inputs after a valid day will be treated as a time. Every other input gets treated as an activity.</p>
+</li>
+<li>
 <p>Time must be 8am, 9am, 10am, 11am, 12am, 1pm, 2pm, 3pm, 4pm, 5pm, 6pm or 7pm.</p>
 </li>
 <li>
-<p>Contacts can be filtered by more than one module/day and time.</p>
+<p>Contacts can be filtered by more than one activity/day and time.</p>
+</li>
+<li>
+<p>Filter feature is not case sensitive.</p>
 </li>
 </ul>
 </div>
@@ -801,6 +761,10 @@ people who are busy at the selected time slot. Module filtering filters out peop
 <div class="paragraph">
 <p><code>filter GER1000</code><br>
 Shows only contacts who have GER1000 in the timetable.</p>
+</div>
+<div class="paragraph">
+<p><code>filter run</code><br>
+Shows only contacts who have run in their timetable.</p>
 </div>
 <div class="paragraph">
 <p><code>filter mon 10am</code><br>
@@ -1434,4 +1398,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:02:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 04:22:33 UTC</div></div></div></body></html>
