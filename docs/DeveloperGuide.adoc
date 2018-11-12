@@ -1452,6 +1452,4 @@ does not have GER1000 at the monday 10am slot of his timetable.
    Expected: No change happens. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `change 1 ada 10am GER1000`, `change 1 mon 2321am GER1000`, `change 1 mon
 10am GER1000` when the first person's monday 10am slot already has GER1000.
-
-   Expected: Invalid Day, Invalid Time, No time slot changed respectively.
-   
+Expected: Invalid Day, Invalid Time, No time slot changed respectively.
