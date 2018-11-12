@@ -2269,16 +2269,13 @@ b. Require developers to download those libraries manually (this creates extra w
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<p>(For all use cases below, the <strong>System</strong> is <code>NSync</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
 </div>
 <h3 id="use-case-delete-person" class="discrete">Use case: Delete person</h3>
 <div class="paragraph">
@@ -2386,9 +2383,6 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 <div class="sect2">
 <h3 id="use-case-merge-people"><a class="link" href="#use-case-merge-people">C.1. Use case: Merge people</a></h3>
 <div class="paragraph">
@@ -2445,13 +2439,17 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>9</code> or higher installed.</p>
+<p>Should work on any Windows OS as long as it has Java <code>9</code> or higher installed.</p>
 </li>
 <li>
 <p>Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.</p>
 </li>
 <li>
 <p>A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
+</li>
+<li>
+<p>To fully make use of downloading notes commands, the user has to have the Google Chrome web browser installed on his computer, and also be an <a href="#IVLE">IVLE</a> user in <a href="#NUS">NUS</a>.
+<em>{More to be added}</em></p>
 </li>
 </ol>
 </div>
@@ -2461,9 +2459,6 @@ b. Require developers to download those libraries manually (this creates extra w
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 </div>
@@ -2472,14 +2467,14 @@ b. Require developers to download those libraries manually (this creates extra w
 <div class="sectionbody">
 <div class="dlist">
 <dl>
-<dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
-<dd>
-<p>Windows, Linux, Unix, OS-X</p>
-</dd>
 <dt class="hdlist1"><a id="IVLE"></a> IVLE</dt>
 <dd>
 <p>According to the National University of Singapore, Integrated Virtual Learning Environment (IVLE) is a NUS' custom designed and built Learning Management System
 for the NUS community. It is designed to facilitate and supplement teaching at the National University of Singapore (NUS).</p>
+</dd>
+<dt class="hdlist1"><a id="NUS"></a> NUS</dt>
+<dd>
+<p>The National University of Singapore (NUS) is an autonomous research university in Singapore.</p>
 </dd>
 <dt class="hdlist1"><a id="private-contact-detail"></a> Private contact detail</dt>
 <dd>
@@ -2493,10 +2488,7 @@ for the NUS community. It is designed to facilitate and supplement teaching at t
 <h2 id="product-survey"><a class="link" href="#product-survey">Appendix E: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Product Name</strong>: N*Sync</p>
-</div>
-<div class="paragraph">
-<p>Author: W12-2</p>
+<p><strong>Product Name</strong>: Google Contacts</p>
 </div>
 <div class="paragraph">
 <p>Pros:</p>
@@ -2504,11 +2496,10 @@ for the NUS community. It is designed to facilitate and supplement teaching at t
 <div class="ulist">
 <ul>
 <li>
-<p>Students are currently able to type in their module code, and the relevant timeslots pertaining to all the different
-types of lessons (e.g. lectures, tutorials, lab sessions, etc) will be displayed.</p>
+<p>The user is able to have all his contacts automatically synced across multiple devices.</p>
 </li>
 <li>
-<p>Students do not have to go to IVLE to retrieve the timing of the various classes for a module.</p>
+<p>The user&#8217;s contacts will automatically be transferred over to a new device, if he logs in to his google account on it.</p>
 </li>
 </ul>
 </div>
@@ -2518,10 +2509,40 @@ types of lessons (e.g. lectures, tutorials, lab sessions, etc) will be displayed
 <div class="ulist">
 <ul>
 <li>
-<p>Students have to manually select their relevant lecture/tutorial/lab sessions by clicking via several steps.</p>
+<p>The user is unable to have a consolidated list of timetables for all his contacts.</p>
 </li>
 <li>
-<p>Students' timetable on NUSMods is not as easily transferrable across different devices.</p>
+<p>The user is also unable to access <a href="#IVLE">IVLE</a> and download his notes using Google Contacts.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Product Name</strong>: NUSMods</p>
+</div>
+<div class="paragraph">
+<p>Pros:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The user is able to all his enrolled modules, and create a visually appealing timetable quickly.</p>
+</li>
+<li>
+<p>The timeslots are retrieved from directly from <a href="#NUS">NUS</a>, which allows the user to rest assured that his timetable
+is accurate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The user is unable to have a consolidated list of timetables for all his contacts.</p>
+</li>
+<li>
+<p>The user is also unable to access <a href="#IVLE">IVLE</a> and download his notes using Google Contacts.</p>
 </li>
 </ul>
 </div>
@@ -2612,15 +2633,118 @@ Expected: Similar to previous.</p>
 </div>
 <div class="sect2">
 <h3 id="deleting-downloaded-notes"><a class="link" href="#deleting-downloaded-notes">F.3. Deleting downloaded notes</a></h3>
+<div class="paragraph">
+<p>Because features which involve downloading notes have been disallowed by NUS, in order to test deleting notes,
+testers have to manually create notes and delete them.  However, because this is not how NSync was designed to work,
+testers have to restart NSync every time they manually create and delete notes within NSync, in order for NSync to
+behave correctly.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Because downloading notes have been disallowed by NUS, testers have to manually create notes and delete them.
-oscar is still working on this part
-create notes folder
-delete notes</p>
+<p>Deleting selected notes</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Before starting NSync, go to the directory the .jar file is in.  Create a directory titled "notes".
+Within the newly created
+"notes" directory, create 5 separate directories titled "CS2101", "CS2113", "GEQ1000", "GER1000", "ST2334".
+ It is up to the tester if he wants to create documents or subdirectories within any of the newly created 5
+ directories, in order to simulate actual notes being stored within the directories.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes ST2334</code><br>
+Expected: The directory "ST2334" and its contents are deleted from the "notes" directory.
+ "ST2334" will be shown in the first line of the status message, which shows the notes that have been deleted.
+ In the second line of the status message, which shows the entries that are invalid, it will not contain any elements,
+ as "ST2334" is a valid entry.<br>
+ Timestamp in the status bar is not updated, as this command does
+ not modify the addressBook.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes ger1000 geq1000</code><br>
+Expected: No notes are deleted.
+ Expected: No notes are deleted.  Error details suggesting for the user to run <code>showNotes</code> is displayed. Timestamp
+in the status bar is not updated.  This is because only invalid entries are entered, and the entries are case-sensitive.
+ Timestamp in the status bar is not updated, as this command does
+ not modify the addressBook portion of NSync.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes GER1000 GEQ1000</code><br>
+Expected: The directories "GER1000" and "GEQ1000" and their contents are deleted from the "notes" directory.
+ "GEQ1000" and "GER1000" will be shown in the first line of the status message, which shows the notes that
+ have been deleted.
+ In the second line of the status message, which shows the entries that are invalid, it will not contain any elements,
+ as "GEQ1000" and "GER1000" are valid entries.<br>
+ Timestamp in the status bar is not updated, as this command does
+ not modify the addressBook portion of NSync.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes CS ST2334</code><br>
+Expected: The directories "CS2101" and "CS2113" and their contents are deleted from the "notes" directory.
+ "CS2101" and "CS2113" will be shown in the first line of the status message, which shows the notes that
+ have been deleted.
+ In the second line of the status message, which shows the entries that are invalid, "ST2334" will be shown.
+ This is because "ST2334" has been previously deleted and should no longer exist in the NSync.+
+ Timestamp in the status bar is not updated, as this command does
+ not modify the addressBook portion of NSync.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes CS ST2334</code><br>
+Expected: No notes are deleted.  Error details suggesting for the user to run <code>showNotes</code> is displayed. Timestamp
+in the status bar is not updated.  This is because only invalid entries are entered.</p>
+</li>
+<li>
+<p>Test case: <code>deleteSelectNotes</code><br>
+Expected: No notes are deleted.  Error details are shown in the status message.  Timestamp remains unchanged.</p>
 </li>
 </ol>
+</div>
+</li>
+<li>
+<p>Clearing notes</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Before starting NSync, go to the directory the .jar file is in.  Create a directory titled "notes".
+Within the newly created
+"notes" directory, create 5 separate directories titled "CS2101", "CS2113", "GEQ1000", "GER1000", "ST2334".
+ It is up to the tester if he wants to create documents or subdirectories within any of the newly created 5
+ directories, in order to simulate actual notes being stored within the directories.</p>
+</li>
+<li>
+<p>Test case: <code>clearNotes</code><br>
+Expected: All files and directories in the "notes" folder will be cleared.  This only excludes hidden bookkeeping files
+  created by the user&#8217;s operating system.  The resultant "notes" folder will be
+empty.  The status message indicating that your notes have been cleared will be shown.  Timestamp in the status bar
+is not updated, as this command does not modify the addressBook portion of NSync.</p>
+</li>
+<li>
+<p>Test case: <code>clearNotes</code><br>
+Expected: Even though the "notes" folder is empty, clearNotes will still run to ensure that it is indeed empty.
+Timestamp in the status bar is not updated, as this command does not modify the addressBook portion of NSync.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Both <code>deleteAllNotes</code> and <code>clearNotes</code> commands are designed to work with <code>downloadAllNotes</code> and <code>downloadSelectNotes</code>
+commands.  Using the download commands, notes will be downloaded into the "notes" directory, and automatically, neatly
+stored in a subdirectory within the "notes" directory.  The name of the subdirectory is the typical module codes of
+modules in NUS. This is made possible by the API used for the download notes commands, as well as the module code parser
+built into NSync.  The result is that all names of subdirectories will be the module code only e.g. "CS2100" and not
+"CS2100 Introduction to Computer Organisation".
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -2672,4 +2796,4 @@ The download function has temporarily been disabled in accordance with NUS Infor
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:27:46 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:29:05 UTC</div></div></div></body></html>
