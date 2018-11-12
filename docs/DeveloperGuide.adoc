@@ -104,6 +104,7 @@ When you are ready to start coding,
 === Architecture
 
 Architecture Diagram
+
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
