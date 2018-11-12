@@ -331,9 +331,12 @@ timetables.
 
 Format: `update`
 ****
+* Update will update all your groups when you use it.
 * If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
 affeccted in addition to updating the group timetables.
-* Update will update all your groups when you use it.
+* If the deletion of a contact results in your own contact being the only person left in the group, the group will be
+ automatically deleted. This deletion will also be reflected in the command result in addition to the people who were
+  deleted and the groups affected by their deletion.
 ****
 
 // end::updatecommand[]

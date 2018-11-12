@@ -1454,3 +1454,4 @@ does not have GER1000 at the monday 10am slot of his timetable.
 10am GER1000` when the first person's monday 10am slot already has GER1000.
 
    Expected: Invalid Day, Invalid Time, No time slot changed respectively.
+   

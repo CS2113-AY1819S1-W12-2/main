@@ -239,10 +239,10 @@ public class UpdateMergedCommand extends Command {
     String createCorrectOutputGroups(List<String> removedGroups) {
         String output = "";
         for (String it : removedGroups) {
-            if(!it.equalsIgnoreCase(removedGroups.get(removedGroups.size()-1))) {
+            if (!it.equalsIgnoreCase(removedGroups.
+                    get(removedGroups.size() - 1))) {
                 output = output + it + ", ";
-            }
-            else{
+            } else {
                 output = output + it;
             }
         }
