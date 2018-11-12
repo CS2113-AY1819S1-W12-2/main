@@ -534,7 +534,11 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores the Address Book data.</p>
 </li>
 <li>
-<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
+<p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.</p>
+</li>
+<li>
+<p>exposes an unmodifiable <code>ReadOnlyNotesDownloaded&lt;Set&gt;</code> that can be 'observed' e.g. the Logic can be bound to this
+list so that the Logic can detect what notes have been downloaded by the user.</p>
 </li>
 <li>
 <p>does not depend on any of the other three components.</p>
@@ -572,7 +576,7 @@ Similarly, we can store a <code>EnrolledModules</code> list in <code>Address Boo
 <p><strong>API</strong> : <a href="https://github.com/CS2113-AY1819S1-W12-2/main/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>Storage</code> component,</p>
+<p>The <code>Storage</code> component has the following capabilities.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -581,6 +585,10 @@ Similarly, we can store a <code>EnrolledModules</code> list in <code>Address Boo
 </li>
 <li>
 <p>can save the Address Book data in xml format and read it back.</p>
+</li>
+<li>
+<p>can unzip, organize and delete, a
+ll notes downloaded by the user using NSync.</p>
 </li>
 </ul>
 </div>
@@ -3085,4 +3093,4 @@ Expected: Application opens with an address book with empty data.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:39:45 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:50:57 UTC</div></div></div></body></html>
