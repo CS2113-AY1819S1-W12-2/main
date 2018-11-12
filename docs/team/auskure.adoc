@@ -21,7 +21,7 @@ coordination and notes acquisition, allowing for streamlining of work processes.
 ** What it does: In a single command, the user is able to delete the notes previously downloaded using
  NSync, allowing him to quickly and conveniently free up storage space.
 ** Justification: Because my teammate has already implemented an automated notes downloader, allowing
-the user to download large folders conveniently, it important to have an equally convenient method
+the user to download large folders conveniently, it is important to have an equally convenient method
 to delete notes.  This removes the need for the user to manually go to storage to delete his own
 notes.
 ** Highlights: As this enhancement involves interaction with actual storage, a good understanding of
@@ -30,7 +30,7 @@ Existing file manipulation libraries such as java.io and java nio libraries were
 enhancement.
 
 * *Minor enhancement*: Alphabetised contact list in the address book
-** What it does: When the users adds a new contact to your contact list, the contact is added in an alphabetic
+** What it does: When the user adds a new contact to your contact list, the contact is added in an alphabetic
  order automatically.  This is opposed to the original implementation, which simply appends the new
  contact to the end of the contact list.
 ** Justification:  Alphabetisation allows the contact list to appear more organized.

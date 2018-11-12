@@ -104,6 +104,7 @@ When you are ready to start coding,
 === Architecture
 
 Architecture Diagram
+
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -136,6 +137,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 Class Diagram of the Logic Component
+
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
@@ -144,6 +146,7 @@ image::LogicClassDiagram.png[width="800"]
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 Component interactions for `delete 1` command (part 1)
+
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -152,6 +155,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 Component interactions for `delete 1` command (part 2)
+
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -163,6 +167,7 @@ The sections below give more details of each component.
 === UI component
 
 Structure of the UI Component
+
 image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -184,6 +189,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 Structure of the Logic Component
+
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
@@ -197,12 +203,14 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 Interactions Inside the Logic Component for the `delete 1` Command
+
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 Structure of the Model Component
+
 image::modelDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -230,11 +238,12 @@ image:ModelClassEvenBetterOopDiagram.png[width="800"]
 === Storage component
 
 Structure of the Storage Component
+
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component has the following capabilities.
+The `Storage` component as shown in the figure above, has the following capabilities.
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
@@ -368,7 +377,7 @@ image::ChangeTimeslot4.PNG[width="400",align="center"]
 
 The following sequence diagram shows how the `change` function works.
 
-image::ChangeTimeslot5.PNG[width="500",align="center"]
+image::ChangeTimeSlot5.PNG[width="500",align="center"]
 
 
 ==== Design Considerations
@@ -470,7 +479,7 @@ image::UpdateCommand3.PNG[width="500",align="center"]
 
 The following sequence diagram shows how the `update` function works.
 
-image::UpdateCommand4.PNG[width="500",align="center"]
+image::UpdateCommand5.PNG[width="500",align="center"]
 
 ==== Design Considerations
 
@@ -484,10 +493,11 @@ image::UpdateCommand4.PNG[width="500",align="center"]
 // end::updategrouptimetables[]
 
 // tag::sortingofpersons[]
-=== Sorting of contacts feature
+=== Sorting of Contacts Feature
 ==== Current Implementation
 
-The sorting mechanism is implemented with `UniquePersonListHelper`, which is facilitated by `UniquePersonList`,
+To make the codebase easy to understand for you as a developer, we implemented the sorting mechanism with
+ `UniquePersonListHelper`, which is facilitated by `UniquePersonList`,
  which keeps a list of unique persons in `AddressBook`.
 `UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an lexicographical order, according
 to the person's name. It implements the following operations:
@@ -621,9 +631,9 @@ Clears the UniquePersonList every time a change is made, and iterates through th
  UniquePersonList.
 ** Pros: Easy to implement.  Allows for minimal and compartmentalised changes throughout the code base.  Fast overall
 time complexity of O(N).
-** Cons: May have performance issues in terms of memory usage.
+** Cons: May have performance issues in terms of memory usage, which can be complicated for you as a developer to rectify.
 * **Alternative 2:** Implement a comparator in the current UniquePersonList.
-** Pros: Will use less memory, because there is no need for a helping class or data structure.
+** Pros: Will use less memory, because there is no need for a helper class or data structure.
 ** Cons: It has a time complexity of O(N log N), which is slower than our chosen implementation.
 
 ===== Aspect: Defensive programming practices for helper class
@@ -631,15 +641,15 @@ time complexity of O(N).
 * **Alternative 1 (current choice):** Implement all checks for errors in the helper class, `UniquePersonListHelper` and none in
 `UniquePersonList`.  This is because the helper class is in charge of the actual execution of the program.  If the checks for
 errors are implemented in `UniquePersonList` only, it is possible for a new developer to accidentally bypass the checks.
-** Pros: Prevents unnecessary checks and hence, potentially confusing code.
-** Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, the developer has
-to remember to implement his/her own checks.
+** Pros: Prevents unnecessary checks and hence, potentially confusing code for you as a developer.
+** Cons: If any changes are made to the helper class in the future, e.g. removing the helper class, you as a developer
+will have to remember to implement your own checks.
 * **Alternative 2:** Implement all checks for errors in both `UniquePersonList` and `UniquePersonListHelper`.
 ** Pros: This would add an additional layer of defence to possible careless mistakes by developers in the future.  E.g.
-If they were to make their own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
+If you were to make your own version of the helper class but forget to implement their own checks for errors, `UniquePersonList`
 would still have backup checks.
 ** Cons: Introducing redundant checks, which would be misleading, This makes code harder to understand.
-  Redundant checks might also incorrectly encourage careless programing habits.
+  Redundant checks might also incorrectly encourage careless programing habits for you as a developer.
 // end::sortingofpersons[]
 
 === Logging
@@ -821,6 +831,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 Saving documentation as PDF files in Chrome
+
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
