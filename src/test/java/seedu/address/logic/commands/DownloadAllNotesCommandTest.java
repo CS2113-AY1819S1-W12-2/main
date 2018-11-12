@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 //@@author BearPerson1
 
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.CORRECT_MODULE_CODE;
 import static seedu.address.logic.commands.CommandTestUtil.INCORRECT_MODULE_CODE;
@@ -28,18 +29,19 @@ public class DownloadAllNotesCommandTest {
     public void execute_downloadAllNotesCommand_wrongUserNameAndPass() {
         DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
                 CORRECT_MODULE_CODE);
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
     }
 
     /**
      * checks if incorrect module code will fail correctly
      */
 
-
     public void execute_downloadAllNotesCommand_invalidModuleCode() {
         DownloadAllNotesCommand command = new DownloadAllNotesCommand(INCORRECT_USERNAME, INCORRECT_PASSWORD,
                 INCORRECT_MODULE_CODE);
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
     }
 
     /**
@@ -52,7 +54,8 @@ public class DownloadAllNotesCommandTest {
                 CORRECT_MODULE_CODE);
         String intendedFileLocation = System.getProperty("user.dir") + DownloadAllNotesCommand.DOWNLOAD_FILE_PATH;
         File notesFile = new File(intendedFileLocation);
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
         assertTrue(notesFile.exists());
     }
 
@@ -69,7 +72,8 @@ public class DownloadAllNotesCommandTest {
         File windowsDriverDir = new File(intendedFileLocation);
         intendedFileLocation += "/" + DownloadAllNotesCommand.WINDOWS_CHROME_DRIVER_NAME;
         File windowsChromeDriver = new File(intendedFileLocation);
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
         try {
             assertTrue(windowsDriverDir.exists());
         } catch (NullPointerException npe) {
@@ -95,7 +99,8 @@ public class DownloadAllNotesCommandTest {
         File macDriverDir = new File(intendedFileLocation);
         intendedFileLocation += "/" + DownloadAllNotesCommand.MAC_CHROME_DRIVER_NAME;
         File macChromeDriver = new File(intendedFileLocation);
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
         try {
             assertTrue(macDriverDir.exists());
         } catch (NullPointerException npe) {
@@ -117,12 +122,13 @@ public class DownloadAllNotesCommandTest {
                 CORRECT_MODULE_CODE);
         String intendedFileLocation = System.getProperty("user.dir")
                 + DownloadAllNotesCommand.DOWNLOAD_FILE_PATH;
-        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+        assertCommandFailure(command, model, commandHistory, Messages.MESSAGE_USERNAME_PASSWORD_ERROR
+                + DownloadSelectNotesCommand.NEWLINE_SEPARATOR + DownloadSelectNotesCommand.MESSAGE_USAGE);
         File notesFile = new File(intendedFileLocation);
         String[] filesInNotesFile = notesFile.list();
         try {
             for (String files : filesInNotesFile) {
-                assertTrue(files.contains(DownloadAllNotesCommand.DOWNLOAD_FILE_ONGOING_EXTENSION));
+                assertFalse(files.contains(DownloadAllNotesCommand.DOWNLOAD_FILE_ONGOING_EXTENSION));
             }
         } catch (Exception e) {
             throw new AssertionError("A crdownload file exist");

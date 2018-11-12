@@ -112,7 +112,7 @@ public class ImportCommandTest {
     @Test
     public void execute_importStringIsInvalid() {
 
-        //corrupting the string
+        // corrupting the string by adding an extra character
         theString += "a";
         ImportCommand ic = new ImportCommand(theString);
         CommandTestUtil.assertCommandFailure(ic, model, commandHistory, ImportCommand.MESSAGE_FAILED);
@@ -122,8 +122,7 @@ public class ImportCommandTest {
     @Test
     public void execute_importNotDuplicate() {
 
-
-        //using add example command
+        // using add example command
         ImportCommand ic = new ImportCommand(nonDuplicate);
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("friends"));

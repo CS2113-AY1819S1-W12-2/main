@@ -11,10 +11,10 @@
 
 NSync is a student lifestyle management and utility application built apon AddressBook - Level 4. The application uses a Command-Line interface to interact with the user. It aims to increase the efficiency of time consuming tasks that predominantly exist in a students life.
 
-This document documents the contributions of Hu Yi Qing across the duration of the project.
+This document includes the contributions of Hu Yi Qing across the duration of the project.
 
 == [blue]#Summary of contributions#
-* *Major Enhancement* : Added ability to download notes from IVLE automatically.
+* *Major Enhancement* : Added the ability to download notes from IVLE automatically.
 
 
 ** What it does: Allows user to download all notes of a certain module using the `downloadAllNotes` command
@@ -28,7 +28,7 @@ or view all the available files and select which files to download with the `dow
 ** Credits: Selenium WebDriver.
 
 
-* *Minor Enhancement* :  added the ability to view the notes download using the `showNotes`.
+* *Minor Enhancement* : Added the ability to view the notes download using the `showNotes`.
 
 ** What it does: Displays notes downloaded.
 
@@ -38,9 +38,9 @@ or view all the available files and select which files to download with the `dow
 
 
 * *Other Contributions :*
-** Project management:
-*** Implemented auto extraction of ChromeDrivers from the .jar.
-*** Implemented auto creation of additional file paths from .jar.
+** Additional enhancements:
+*** Implemented auto extraction of ChromeDrivers from the NSync.jar.
+*** Implemented auto creation of additional file paths from NSync.jar.
 
 ** Community:
 

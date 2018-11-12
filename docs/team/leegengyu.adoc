@@ -29,16 +29,18 @@ NSync is a desktop application with a command-line interface that helps NUS stud
 
 ** Project management:
 *** Managed releases for NSync: `v1.2`, `v1.3`, `v1.3(PE)`, `v1.4` on GitHub
-*** Bug reports of NSync reviewed (with non-trivial review comments): All issues from #99 to #135
+
+*** Bug reports of NSync reviewed (with non-trivial review comments): All issues from  https://github.com/CS2113-AY1819S1-W12-2/main/issues/99[#99] to https://github.com/CS2113-AY1819S1-W12-2/main/issues/135[#135]
 
 ** Community:
-*** Contributed to forum discussions: #14, #27
-*** Reported bugs and suggestions for team T09-4 in the class: #129, #131, #133, #136, #138, #140, #141, #143
+*** Contributed to forum discussions: https://github.com/nusCS2113-AY1819S1/forum/issues/14[#14], https://github.com/nusCS2113-AY1819S1/forum/issues/27[#27]
+
+*** Reported bugs and suggestions for team T09-4 in the class: https://github.com/CS2113-AY1819S1-T09-4/main/issues/129[#129],  https://github.com/CS2113-AY1819S1-T09-4/main/issues/131[#131], https://github.com/CS2113-AY1819S1-T09-4/main/issues/133[#133], https://github.com/CS2113-AY1819S1-T09-4/main/issues/136[#136], https://github.com/CS2113-AY1819S1-T09-4/main/issues/138[#138], https://github.com/CS2113-AY1819S1-T09-4/main/issues/140[#140], https://github.com/CS2113-AY1819S1-T09-4/main/issues/141[#141], https://github.com/CS2113-AY1819S1-T09-4/main/issues/143[#143]
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are 3 sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=freecommand]
@@ -50,7 +52,7 @@ include::../UserGuide.adoc[tag=importcommand]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is a section I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=updategrouptimetables]

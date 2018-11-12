@@ -47,11 +47,13 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
+
+
     protected Logic logic;
     protected Storage storage;
     protected Model model;

@@ -41,7 +41,7 @@ public class ExportCommandTest {
 
         CommandResult cr = ec.execute(model, commandHistory);
         String exportString = cr.feedbackToUser;
-        //remove string that informs user that the string is copied
+        // remove string that informs user that the string is copied
         exportString = exportString.replaceAll("The generated string has been copied onto your clip-board.", "");
         exportString = exportString.trim();
         theString = exportString;
@@ -62,6 +62,5 @@ public class ExportCommandTest {
         }
 
     }
-
 
 }

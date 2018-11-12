@@ -23,7 +23,7 @@ public class Messages {
     public static final String MESSAGE_EXTRACTION_JAR_FAIL =
         "Extracting chromeDrivers or setting up Notes folder has failed";
     public static final String MESSAGE_DOWNLOAD_SELECT_SUCCESS = "Here are your the files available for: ";
-    public static final String MESSAGE_USERNAME_PASSWORD_ERROR = "You have entered the Wrong username or Password.";
+    public static final String MESSAGE_USERNAME_PASSWORD_ERROR = "You have entered a wrong username or Password.";
     public static final String MESSAGE_DYNAMIC_WAITING_INTERRUPTED = "Waiting for the files have been interrupted";
     public static final String MESSAGE_DOWNLOAD_SELECT_NO_FILES_SELECTED =
         "Please select a file after the \"file/\" tag. Ie: file/(0,1,2...n))";
@@ -36,5 +36,5 @@ public class Messages {
 
     public static final String MESSAGE_FILE_LOCATION_ERROR = "The folder \"notes\" is not found!" + NEWLINE_SEPARATOR
             + "please download some notes to continue using showNotes";
-
+    public static final String MESSAGE_FILE_INDEX_ERROR = "You have entered an invalid file index, please try again!";
 }

@@ -24,7 +24,9 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
 
     public static final String COMMAND_WORD = "downloadAllNotes";
 
-    public static final String MESSAGE_USAGE = "downloadAllNotes user/(username) pass/(password) mod/(moduleCode)";
+    public static final String MESSAGE_USAGE = "To download all your notes from IVLE:" + NEWLINE_SEPARATOR
+            + COMMAND_WORD + "user/(IVLE username) pass/(IVLE password) mod/(moduleCode)" + NEWLINE_SEPARATOR
+            + "Example: user/e0123456 pass/******** mod/CS2113";
 
     private static final String CHECKBOX_XPATH_VALUE = "//input[@type='checkbox']";
 
@@ -60,11 +62,11 @@ public class DownloadAllNotesCommand extends DownloadAbstract {
         }
         if (!isLoggedIn(driver)) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR);
+            throw new CommandException(Messages.MESSAGE_USERNAME_PASSWORD_ERROR + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         if (!isModuleExisting(driver)) {
             driver.close();
-            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND);
+            throw new CommandException(Messages.MESSAGE_MODULE_NOT_FOUND + NEWLINE_SEPARATOR + MESSAGE_USAGE);
         }
         /**
          * Updated to disable download operations, if isDownloadDisabled==true.

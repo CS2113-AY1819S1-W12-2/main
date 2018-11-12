@@ -373,23 +373,22 @@ Shows only contacts who have GER1000 in their timetable and are free at mon 10am
 // end::filtercommand[]
 
 // tag::freecommand[]
-==== Filters for next free time slot: `free`
+==== Filters for next free time-slot: `free`
 Want to meet up with your friends at the soonest opportunity? Or would you like to find out when is the next time you can take a break (with no scheduled activities)? `free` allows you to easily find the next available time-slot from the current time for one or more of your NSync contacts, giving you answers to these questions!
 
 Format: `free f/[SELF/INDEX] ...`
 
 image::SampleTimeTable.png[width="800"]
-Figure 1: Sample time-table
 
 Example 1: `free f/self` +
-Running this command will show your next available time slot (from current time). +
-With reference to Figure 1 above, if the current day and time is Monday 3:00pm, your next available time-slot shown is Monday 4:00pm till 8:00pm. If the current day and time is Monday 4:34pm, your next available time-slot shown is Monday 4:34pm till 8:00pm.
+Running this command will show your next available time-slot (from current time). +
+With reference to the time-table found in the figure above, if the current day and time is Monday 3:00pm, your next available time-slot shown is Monday 4:00pm till 8:00pm. If the current day and time is Monday 4:34pm, your next available time-slot shown is Monday 4:34pm till 8:00pm.
 
 Example 2: `free f/1 f/7 f/9` +
-Running this command will show the next available time slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
+Running this command will show the next available time-slot (from current time) for contacts whose indices are 1, 7 and 9 respectively.
 
 [NOTE]
-Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time slot from the next weekday.
+Running this command outside the day window of Monday to Friday or beyond the time of 8pm will return a time-slot from the next weekday.
 // end::freecommand[]
 
 // tag::exportcommand[]
@@ -402,19 +401,21 @@ Format: `export PUBLIC/PRIVATE SELF/INDEX`
 * Type 'private' if you would like the user who imports your contact to see only your free and busy time-slots respectively (i.e. specific contents of your time-table are hidden!).
 ****
 
-All examples shown below are with reference to the sample time-table shown in Figure 1 above.
+All examples shown below are with reference to the sample time-table shown in the figure above.
 
 Example 1: `export public self` +
-The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), exactly as shown in Figure 1 above.
+The importing user will see your time-table in its entirety (i.e. the full contents of the time-table), exactly as shown in the sample time-table above.
 
 Example 2: `export private self` +
-The importing user will see only the busy and free time-slots in your time-table, marked as black and white colored slots respectively, as seen in Figure 2 below.
+The importing user will see only the busy and free time-slots in your time-table, marked as black and white colored slots respectively, as seen in the figure below.
 
 image::ExportPrivateView.png[width="800"]
-Figure 2: What the user who imports will see (private view)
 
 [TIP]
 The generated string from the command will be automatically copied for you (no manual selecting and copying required)! All you have to do is to send it in its entirety to a fellow NSync user who will import it.
+
+[NOTE]
+When exporting a time-table with only free and busy time-slots (i.e. black and white slots), it does not matter if you select either the public or private option - the user who imports your generated string will see the same time-table.
 
 [NOTE]
 Exporting more than 1 user's details at a time or exporting a merged time-table is currently not available (but will be implemented in future releases!).
@@ -430,7 +431,7 @@ Display Message 1: Import Successful! +
 If you have imported a valid contact who is currently not in your NSync (i.e. no contact with the same name), all of the imported user's details will now be found in your NSync.
 
 [NOTE]
-If you see only black and white colored slots in the time-table of the imported contact, it means that the exporting user has chosen the `private` option during the `export` process. See `export` for more details.
+If you see only black and white colored slots in the time-table of the imported contact, it means that the exporting user could have chosen the `private` option during the `export` process. See `export` for more details.
 
 Display Message 2: Import Successful! An existing contact has been found in NSync and has been overwritten. +
 If you have imported a valid contact who is currently already in your NSync (i.e. contact with the same name), all of the details found in the imported string will overwrite the existing ones found in your NSync, for that particular contact.
@@ -450,7 +451,13 @@ The download function has temporarily been disabled in accordance with NUS Infor
 
 You are still able to login and view available files to be downloaded. Try out `downloadSelectNotes` without the `/file` prefix!
 
-You will need Google Chrome and run a Windows operating system for this function to work.You will also need to be connected to the internet.
+
+[NOTE]
+You would need to have Google Chrome installed in the default location, run Windows 8 or above and be connected to the internet to use the download commands.
+
+[NOTE]
+You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
+
 
 
 ==== Downloading all notes from a selected module from IVLE : `downloadAllNotes`
@@ -460,10 +467,6 @@ Format: `downloadAllNotes downloadAllNotes [user/IVLE USERNAME] [pass/IVLE PASSW
 
 
 
-[NOTE]
-You would need to have Google Chrome installed in the default location in order to execute this command.
-[NOTE]
-You would be unable to see your inputted command after inputting it, this is a security feature to prevent your login credentials from being compromised.
 
 
 
@@ -662,7 +665,7 @@ This allows you to have an immediate idea of exactly what you downloaded.
 
 Example:
 
-image::automaticallyDisplayedNotes.PNG[width="600"]
+image::automaticallyDisplayedNotes.png[width="600"]
 
 == FAQ
 

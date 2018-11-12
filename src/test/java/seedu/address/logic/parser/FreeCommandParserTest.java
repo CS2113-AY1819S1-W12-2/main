@@ -35,14 +35,15 @@ public class FreeCommandParserTest {
     public void parse_validArgs_differentIndex() {
         ArrayList<String> listIndex = new ArrayList<>();
         listIndex.add("2");
-        FreeCommand fc1 = null;
-        FreeCommand fc2 = new FreeCommand(listIndex);
+        FreeCommand freeCommandOne = null;
+        FreeCommand freeCommandTwo = new FreeCommand(listIndex);
+
         try {
-            fc1 = parser.parse(" " + PREFIX_FREE + "1");
+            freeCommandOne = parser.parse(" " + PREFIX_FREE + "1");
         } catch (ParseException e) {
             throw new IllegalArgumentException("Invalid userInput.", e);
         }
-        assertNotEquals(fc2, fc1);
+        assertNotEquals(freeCommandTwo, freeCommandOne);
     }
 
     @Test
@@ -55,6 +56,5 @@ public class FreeCommandParserTest {
         assertParseFailure(parser, " " + PREFIX_TAG + "1",
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeCommand.MESSAGE_USAGE));
     }
-
 
 }

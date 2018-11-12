@@ -18,7 +18,7 @@ coordination and notes acquisition, allowing for streamlining of work processes.
 == Summary of contributions
 
 * *Major enhancement*: Notes Deletion
-** What it does: In a single command, we allow the user to delete the notes previously downloaded using
+** What it does: In a single command, the user is able to delete the notes previously downloaded using
  NSync, allowing him to quickly and conveniently free up storage space.
 ** Justification: Because my teammate has already implemented an automated notes downloader, allowing
 the user to download large folders conveniently, it important to have an equally convenient method
@@ -30,12 +30,12 @@ Existing file manipulation libraries such as java.io and java nio libraries were
 enhancement.
 
 * *Minor enhancement*: Alphabetised contact list in the address book
-** What it does: When you add a new contact to your contact list, the contact is added in an alphabetic
+** What it does: When the users adds a new contact to your contact list, the contact is added in an alphabetic
  order automatically.  This is opposed to the original implementation, which simply appends the new
  contact to the end of the contact list.
 ** Justification:  Alphabetisation allows the contact list to appear more organized.
 ** Highlights: Understanding of time complexity of algorithms is required.
-For the sorting algorithms, we incorporated the existing library java.util.
+For the sorting algorithms, the existing library java.util was incorporated.
 
 * *Code contributed*: https://nuscs2113-ay1819s1.github.io/dashboard/#=undefined&search=auskure[Functional and test code]
 
@@ -70,5 +70,6 @@ This showcases my ability to write technical documentation and the technical
    depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=sortingofpersons]
+include::../DeveloperGuide.adoc[tag=storageComponent]
 
+include::../DeveloperGuide.adoc[tag=sortingofpersons]

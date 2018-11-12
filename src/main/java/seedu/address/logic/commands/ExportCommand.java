@@ -10,7 +10,9 @@ import java.awt.datatransfer.StringSelection;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,11 +85,17 @@ public class ExportCommand extends Command {
             myPerson = filteredPersonList.get(num);
         }
 
+        Map<String, List<TimeSlots>> timeSlotsNew;
+        Person newPerson = myPerson;
         if (!privacy.equalsIgnoreCase("public")) {
-            changeToBusy(myPerson);
+            timeSlotsNew = changeToBusy(myPerson);
+
+            newPerson = new Person(myPerson.getName(), myPerson.getPhone(), myPerson.getEmail(),
+                myPerson.getAddress(), myPerson.getTags(), myPerson.getEnrolledModules(),
+                timeSlotsNew);
         }
 
-        String serializedString = getSerializedString(myPerson);
+        String serializedString = getSerializedString(newPerson);
 
         StringSelection ss = new StringSelection(serializedString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -120,23 +128,28 @@ public class ExportCommand extends Command {
     /**
      * Changes all time slots that have activities to a busy slot.
      */
-    private void changeToBusy(Person source) {
+    private Map changeToBusy(Person source) {
 
         Map<String, List<TimeSlots>> timeSlots = source.getTimeSlots();
+        Map<String, List<TimeSlots>> timeSlotsNew = new HashMap<>();
+        List<TimeSlots> timeNew = new ArrayList<>();
         String[] days = {"mon", "tue", "wed", "thu", "fri"};
         for (String day : days) {
             List<TimeSlots> daySlots = timeSlots.get(day);
+            timeSlotsNew.put(day, timeNew);
             for (int i = 0; i < 12; i++) {
                 TimeSlots activity = daySlots.get(i);
 
-                System.out.println(activity.toString() + " zzk");
                 if (!activity.toString().equalsIgnoreCase("free")) {
                     activity = new TimeSlots("busy");
-                    daySlots.set(i, activity);
+                    timeNew.add(activity);
+                } else {
+                    timeNew.add(new TimeSlots(activity.toString()));
                 }
             }
+            timeNew = new ArrayList<>();
         }
-
+        return timeSlotsNew;
     }
 
     @Override

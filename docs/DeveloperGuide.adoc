@@ -103,7 +103,7 @@ When you are ready to start coding,
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+Architecture Diagram
 image::Architecture.png[width="600"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
@@ -135,7 +135,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
@@ -143,7 +143,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete 1` command (part 1)
+Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
@@ -151,7 +151,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -162,7 +162,7 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+Structure of the UI Component
 image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
@@ -183,7 +183,7 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
@@ -196,13 +196,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+Interactions Inside the Logic Component for the `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
+Structure of the Model Component
 image::modelDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
@@ -211,7 +211,9 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
+* exposes an unmodifiable `ReadOnlyNotesDownloaded<Set>` that can be 'observed' e.g. the Logic can be bound to this
+list so that the Logic can detect what notes have been downloaded by the user.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -224,17 +226,21 @@ Similarly, we can store a `EnrolledModules` list in `Address Book`, which `Perso
 image:ModelClassEvenBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+// tag::storageComponent[]
 === Storage component
 
-.Structure of the Storage Component
+Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component has the following capabilities.
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
+* can unzip, organize and delete, a
+ll notes downloaded by the user using NSync.
+// end::storageComponent[]
 
 [[Design-Commons]]
 === Common classes
@@ -435,28 +441,30 @@ potential bugs if `Address` is changed to have different requirements to be cons
 // end::mergetimetable[]
 
 // tag::updategrouptimetables[]
-=== Update Groups Feature
+=== Update Current Merged Feature
 ==== Current Implementation
-The update feature allows users to update all the timetables of the merged `Person` (s) that they have. It will
-automatically update based on any changes to timetables or deletions of `Persons` (s) involved in the merge.
+Given the scenario where a user has created a merged time-table (i.e. a `mergedPerson` / `Person` with `Tag`-merged) of several contacts (i.e. a `Person` / `Person` with no `Tag`), and one or more contacts had updated their time-tables after the merged time-table had been created, the creator of the merged time-table would previously have to delete the existing merged time-table and manually create another merged time-table to accommodate the changes in the time-table(s).
 
-Given below is an example usage scenario and how the merge mechanism behaves at each step.
+With the `update` feature, users are able to update an existing `mergedPerson`, if there are any changes to the composition of the `mergedPerson`. Such changes include the update of one or more `Person` time-tables or deletions of `Persons`(s).
 
-Step 1. The user inputs update. A list of `Person`(s) with "merged" `Tag` is retrieved. The list is then iterated
-through, updating each `Person` inside.
+Given below is an example of a scenario where `update` is used and how the `merge` mechanism behaves at each step.
+
+Step 1: +
+After the user inputs `update`, a list of `mergedPerson` is retrieved. This list (a.k.a. mergedPersonsList) is iterated through, updating each `mergedPerson` within mergedPersonsList.
 
 image::UpdateCommand1.PNG[width="400",align="center"]
 
-Step 2. `Name` of the `Person` is saved as `groupName`. `Address` of the `Person` is tokenized and the names inside
-are used find the `Person` with that name using the same mechanism as the `find` command. If a `Person` cannot be
-found, the
-`groupName` is stored in a map of `List` s,
-`removedPersons` with name as they key. If it is found, it gets added to an array `personsToMerge`.
+Step 2: +
+The `Name` of each `mergedPerson` is saved as `groupName`. +
+
+To find a desired `Person` for updating within `mergedPerson`, the `Address` of each `mergedPerson` is tokenized (i.e. split up), and the desired `Person` is searched against the names within `Address`. This is the same underlying mechanism as the `find` command. +
+
+If the desired `Person` for updating is found, the `Person` is added to an array called `personsToMerge`. Else, if the desired `Person` cannot be found, both `groupName` and `mergedPerson` are stored in `removedPersons`, which is a map of arrays. To find the corresponding `mergedPerson` in `removedPersons`, use `groupName` as the key (i.e. identifier).
 
 image::UpdateCommand2.PNG[width="500",align="center"]
 
-Step 3. It then follows the same mechanism as the `merge` function to update the merged `Person`. If removedPersons
-is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s)
+Step 3: +
+The merged `Person` is now updated, using the same underlying mechanism as the `merge` feature. If `removedPersons` is not empty, it returns a `CommandResult` showing the `Person`(s) removed and the affected merged `Person`(s).
 
 image::UpdateCommand3.PNG[width="500",align="center"]
 
@@ -467,14 +475,12 @@ image::UpdateCommand4.PNG[width="500",align="center"]
 ==== Design Considerations
 
 ===== Aspect: How update executes
-* **Alternative 1 (current choice):** Updates when called by the user and gets the people who are part of a merged
-contact through their names at the time of merging.
-** Pros: Faster as it only needs to process when feature is used.
-** Cons: Could lead to contacts who still exist being left out during their update if their name has been edited.
-* **Alternative 2 (To be implemented in V2):** Update every time there is a relevant change ie (editing a contact's
-name, changing a contact's timetable or deleting a contact).
-** Pros: More convenience for users. Prevents bug caused by editing a contact's name and then updating.
-** Cons: A lot more processes involved which will slow down the application.
+* **Alternative 1 (current choice):** Updates `mergedPerson` only when `update` is specifically executed by the user as a command. The `Person` s who are part of a `mergedPerson` are then retrieved using their names at the time of merging.
+** Pros: Faster execution time as NSync only needs to run the updating when `update` is specifically executed as a command by the user.
+** Cons: Could lead to a mis-match in information between individual `Person` s themselves, and the `mergedPerson` whom `Person` is part of. This mis-match may also persist if the `Person` 's name has been modified.
+* **Alternative 2 (To be implemented in v2.0):** Execute `update` in an under-lying call immediately whenever there is a relevant change (i.e. if a `Person` who is part of `mergedPerson` has edited their name or changed their time-table, or if a `Person` is no longer part of the `mergedPerson`).
+** Pros: Brings about more convenience for users, and it is more intuitive to them, since they have to only enter 1 command instead of 2. Prevents the bug caused by editing a `Person` 's name and then executing `update`, as mentioned under cons of current choice.
+** Cons: Overall execution time is slower if there are many `mergedPerson` s, and many `edit` s are done. This is because mergedPersonsList is iterated through each time `edit` is done, to examine each `mergedPerson` s.
 // end::updategrouptimetables[]
 
 // tag::sortingofpersons[]
@@ -485,12 +491,6 @@ The sorting mechanism is implemented with `UniquePersonListHelper`, which is fac
  which keeps a list of unique persons in `AddressBook`.
 `UniquePersonListHelper` sorts the contacts in `UniquePersonList` in an lexicographical order, according
 to the person's name. It implements the following operations:
-
-Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person
-as the value in the key-value pair of the treemap, it is able to automatically sort persons according
-to their names.   Therefore, it is possible to iterate through `UniquePersonListHelper`,
-in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
-copied into `UniquePersonList`.
 
 * `UniquePersonList#add()` -- Adds a new person to `UniquePersonList`, and hence the contact list
 * `UniquePersonList#remove()` -- Removes a new person to `UniquePersonList`, and hence the contact list
@@ -509,6 +509,12 @@ Within `ModelManager`, the above listed operations are directly exposed as
 Within `AddressBook`, the above listed operations are directly exposed as
 `AddressBook#addPerson()`, `AddressBook#removePerson()`, `AddressBook#updatePerson()`,
 `AddressBook#setPersons()`, and `AddressBook#hasPerson()` respectively.
+
+Because `UniquePersonListHelper` stores persons in a treemap, with person name as the key, and person
+as the value in the key-value pair of the treemap, it is able to automatically sort persons according
+to their names.   Therefore, it is possible to iterate through `UniquePersonListHelper`,
+in an in-order depth-first-search, to acquire the sorted order of persons.  This sorted order will be
+copied into `UniquePersonList`.
 
 Given below is an example usage scenario and how the sorting mechanism behaves at each step.
 
@@ -616,7 +622,7 @@ Clears the UniquePersonList every time a change is made, and iterates through th
 ** Pros: Easy to implement.  Allows for minimal and compartmentalised changes throughout the code base.  Fast overall
 time complexity of O(N).
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** implement a comparator in the current UniquePersonList.
+* **Alternative 2:** Implement a comparator in the current UniquePersonList.
 ** Pros: Will use less memory, because there is no need for a helping class or data structure.
 ** Cons: It has a time complexity of O(N log N), which is slower than our chosen implementation.
 
@@ -814,7 +820,7 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Within Chrome, click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
-.Saving documentation as PDF files in Chrome
+Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
@@ -1172,6 +1178,22 @@ Use case ends.
 ** 3a2. Use case ends.
 
 [discrete]
+=== Use case: Download all notes
+
+*MSS*
+
+1. User request download all notes
+2. NSync downloads all notes in a zip file in the `notes` folder
+
+*Extensions*
+
+[none]
+* 1a. User enters wrong username, password or module code.
++
+[none]
+** 1a1. NSync informs user of the error
+** 1a2. Use case ends.
+
 === Use case: Merge people
 
 *MSS*
@@ -1422,24 +1444,8 @@ However, if desired, the function can be manually enabled by changing the state 
 
 Since the download function has been disabled, testers can create a `notes` folder in the directory of the jar file and fill it with items. The ShowNotes command will display it accordingly
 
-
 === Changing a person's time slot
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list. Ensure the 1st contact
-does not have GER1000 at the monday 10am slot of his timetable.
-.. Test case: `change 1 mon 10am GER1000` +
-   Expected: First contact's monday 10am time slot is changed to GER1000. A messaeg indicating the change has
-   happened successfully is shown. Timestamp in the status bar is updated.
-.. Test case: `change 0 mon 10am GER1000` +
-   Expected: No change happens. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `change 1 ada 10am GER1000`, `change 1 mon 2321am GER1000`, `change 1 mon
-10am GER1000` when the first person's monday 10am slot already has GER1000.
-
-   Expected: Invalid Day, Invalid Time, No time slot changed respectively.
-
-=== Changing a person's time slot
 
 . Deleting a person while all persons are listed
 
@@ -1453,3 +1459,9 @@ does not have GER1000 at the monday 10am slot of his timetable.
 .. Other incorrect delete commands to try: `change 1 ada 10am GER1000`, `change 1 mon 2321am GER1000`, `change 1 mon
 10am GER1000` when the first person's monday 10am slot already has GER1000.
 Expected: Invalid Day, Invalid Time, No time slot changed respectively.
+=======
+.. Test case: Delete `addressbook.xml` +
+   Expected: Application opens with an address book with the sample data.
+.. Test case: Corrupt `addressbook.xml` by manually editing it +
+   Expected: Application opens with an address book with empty data.
+
