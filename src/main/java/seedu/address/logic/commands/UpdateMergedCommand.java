@@ -39,6 +39,9 @@ public class UpdateMergedCommand extends Command {
     public static final String MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS = "Groups updated. \nContacts who were in"
             + " " + "groups were detected to have been deleted.\nList of deleted contacts and affected groups: \n";
 
+    public static final String MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_GROUPS = "Some groups have been deleted because "
+            + "all members except yourself have been removed from your contacts: ";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
@@ -47,8 +50,10 @@ public class UpdateMergedCommand extends Command {
         List<Person> mainList = ((ObservableList<Person>) filteredPersonList).filtered
                 (new IsNotSelfOrMergedPredicate());
         Map<String, ArrayList<String>> removedPersons = new HashMap<>();
+        List<String> removedGroups = new ArrayList<>();
 
         for (int l = 0; l < mergedList.size(); l++) {
+            boolean personCheck = false;
             Person merged = mergedList.get(l);
             Address people = merged.getAddress();
             Name groupName = merged.getName();
@@ -76,8 +81,14 @@ public class UpdateMergedCommand extends Command {
                     }
                     Person person = singlePersonList.get(0);
                     personsToMerge[i] = person;
+                    personCheck = true;
                     i++;
                 }
+            }
+
+            if (!personCheck) {
+                model.deletePerson(merged);
+                removedGroups.add(groupNameString);
             }
 
             List<Person> selfList = ((ObservableList<Person>) filteredPersonList).filtered(new IsSelfPredicate());
@@ -90,8 +101,14 @@ public class UpdateMergedCommand extends Command {
         }
         model.commitAddressBook();
         if (!removedPersons.isEmpty()) {
-            String output = createCorrectOutput(removedPersons);
-            return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + output);
+            String outputPersons = createCorrectOutput(removedPersons);
+            if (!removedGroups.isEmpty()) {
+                String outputGroups = createCorrectOutputGroups(removedGroups);
+                return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + outputPersons
+                        + MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_GROUPS + outputGroups);
+            }
+
+            return new CommandResult(MESSAGE_UPDATE_SUCCESS_WITH_REMOVED_PERSONS + outputPersons);
         } else {
             return new CommandResult(MESSAGE_UPDATE_SUCCESS);
         }
@@ -211,6 +228,18 @@ public class UpdateMergedCommand extends Command {
                 }
             }
 
+        }
+        return output;
+    }
+
+    /**
+     * Takes a list of groups that have been deleted and returns the correct output
+     */
+
+    String createCorrectOutputGroups(List<String> removedGroups) {
+        String output = "";
+        for (String it : removedGroups) {
+            output = output + it + ", ";
         }
         return output;
     }

@@ -97,8 +97,8 @@ Format: `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...[em/ENROLLED MODULE]...`
 
 [TIP]
 If you somehow lose your self contact, you can create a new one by adding t/self to your add command. Adding any
-other tag will not have any effect on the contact created. If your self contact exists, it will not allow you to add
-a self tag.
+other tag will not have any effect on the contact created. Self contacts cannot be deleted through the interface so
+do not add another self contact if you already have one that exists.
 
 Examples:
 
@@ -321,7 +321,6 @@ image::MergeCommandUserGuide.PNG[width="450",align="center"]
 
 The merged timetable will be added to the list of groups
 
-image::MergeCommandList.PNG[width="500",align="center"]
 // end::mergecommand[]
 
 // tag::updatecommand[]
@@ -334,6 +333,7 @@ Format: `update`
 ****
 * If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
 affeccted in addition to updating the group timetables.
+* Update will update all your groups when you use it.
 ****
 
 // end::updatecommand[]
