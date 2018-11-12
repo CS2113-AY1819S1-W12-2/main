@@ -163,6 +163,7 @@ The sections below give more details of each component.
 === UI component
 
 Structure of the UI Component
+
 image::UiDeveloperGuide.PNG[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
