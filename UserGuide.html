@@ -230,8 +230,8 @@ Format: <code>add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;[em/ENRO
 </td>
 <td class="content">
 If you somehow lose your self contact, you can create a new one by adding t/self to your add command. Adding any
-other tag will not have any effect on the contact created. If your self contact exists, it will not allow you to add
-a self tag.
+other tag will not have any effect on the contact created. Self contacts cannot be deleted through the interface so
+do not add another self contact if you already have one that exists.
 </td>
 </tr>
 </table>
@@ -676,11 +676,6 @@ Merges your own timetable with the 2nd, 3rd and 4th people in the address book.<
 <div class="paragraph">
 <p>The merged timetable will be added to the list of groups</p>
 </div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="images/MergeCommandList.PNG" alt="MergeCommandList" width="500">
-</div>
-</div>
 </div>
 <div class="sect3">
 <h4 id="updating-group-timetables-code-update-code"><a class="link" href="#updating-group-timetables-code-update-code">3.3.3. Updating group timetables: <code>update</code></a></h4>
@@ -696,8 +691,16 @@ timetables.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Update will update all your groups when you use it.</p>
+</li>
+<li>
 <p>If a contact who belongs in one of your groups is deleted, update will show who was deleted and which groups were
 affeccted in addition to updating the group timetables.</p>
+</li>
+<li>
+<p>If the deletion of a contact results in your own contact being the only person left in the group, the group will be
+automatically deleted. This deletion will also be reflected in the command result in addition to the people who were
+ deleted and the groups affected by their deletion.</p>
 </li>
 </ul>
 </div>
@@ -1410,4 +1413,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:13:52 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:20:17 UTC</div></div></div></body></html>
