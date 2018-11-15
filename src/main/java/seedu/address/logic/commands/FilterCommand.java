@@ -1,3 +1,4 @@
+//@@author E0201942
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -8,7 +9,6 @@ import seedu.address.model.Model;
 import seedu.address.model.person.IsNotSelfOrMergedPredicate;
 import seedu.address.model.person.TimetableContainsModulePredicate;
 
-//@@E0201942
 /**
  * Finds and lists all persons in address book who has any of the modules or time slots inputted.
  * Keyword matching is case insensitive.
