@@ -1,3 +1,4 @@
+//@@author E0201942
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -26,8 +27,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.TimeSlots;
 import seedu.address.model.tag.Tag;
-
-//@@E0201942
 
 /**
  * Merges the timetables of multiple people

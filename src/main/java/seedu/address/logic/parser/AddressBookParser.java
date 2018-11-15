@@ -126,7 +126,7 @@ public class AddressBookParser {
             return new DeleteSelectNotesCommandParser().parse(arguments);
 
         // @@author BearPerson1
-                
+
         case DownloadAllNotesCommand.COMMAND_WORD:
             return new DownloadAllNotesCommandParser().parse(arguments);
 
@@ -135,9 +135,9 @@ public class AddressBookParser {
 
         case ShowNotesCommand.COMMAND_WORD:
             return new ShowNotesCommand();
-        
-        // @@author    
-            
+
+        // @@author
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

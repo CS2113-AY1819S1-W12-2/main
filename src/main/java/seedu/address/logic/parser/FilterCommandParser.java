@@ -1,3 +1,4 @@
+//@@author E0201942
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -7,8 +8,6 @@ import java.util.Arrays;
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.TimetableContainsModulePredicate;
-
-//@@E0201942
 
 /**
  * Parses input arguments and creates a new FilterCommand object
